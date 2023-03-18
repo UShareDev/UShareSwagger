@@ -3,12 +3,12 @@ info:
   version: 1.0.0
   title: UShare
 paths:
-  "/memberinfo/{memberId}:":
-    post:
+  "/memberinfo1/{memberId}:":
+    get:
       tags:
         - "メンバー情報取得API"
       summary:
-        "メンバー情報取得API"
+        "メンバー情報取得API(1/5)"
       description:
         "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -28,7 +28,7 @@ paths:
                 properties:
                   id:
                     type: "int"
-                  full_name:
+                  fullName:
                     type: "string"
                   birthday:
                     type: "string"
@@ -36,12 +36,80 @@ paths:
                     type: "string"
                   major:
                     type: "string"
+                  livingPeriodStart:
+                    type: "string"
+                  livingPeriodEnd:
+                    type: "string"
                   link1:
                     type: "string"
                   link2:
                     type: "string"
                   link3:
                     type: "string"
+                example:
+                  id: "1"
+                  fullName: "Yamada Taro"
+                  birthday: "04/01"
+                  university: "Waseda University"
+                  major: "Architecture"
+                  location: "U Share Nishiwaseda"
+                  livingPeriodStart: "2023/01/01"
+                  livingPeriodEnd: "2024/12/31"
+                  link1: "(InstagramURL)"
+                  link2: "(FacebookURL)"
+                  link3: "(LinkedInURL)"
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "BAD_REQUEST"
+                  message:
+                    type: "string"
+                    example: "BAD_REQUEST"
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "NOT_FOUND"
+                  message:
+                    type: "string"
+                    example: "NOT_FOUND"
+
+  "/memberinfo2/{memberId}:":
+    get:
+      tags:
+        - "メンバー情報取得API"
+      summary:
+        "メンバー情報取得API(2/5)"
+      description:
+        "指定したIDのユーザのメンバー情報を取得します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: "int"
                   hobby:
                     type: array
                     items:
@@ -52,15 +120,6 @@ paths:
                       type: string
                 example:
                   id: "1"
-                  full_name: "Yamada Taro"
-                  birthday: "04/01"
-                  university: "Waseda University"
-                  major: "Architecture"
-                  location: "U Share Nishiwaseda"
-                  living_period: "2023 Spring to 2024 Fall"
-                  link1: "(InstagramURL)"
-                  link2: "(FacebookURL)"
-                  link3: "(LinkedInURL)"
                   hobby:
                     - tennis
                     - fishing
@@ -69,6 +128,77 @@ paths:
                     - NewYork
                     - Pari
                     - Venetia
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "BAD_REQUEST"
+                  message:
+                    type: "string"
+                    example: "BAD_REQUEST"
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "NOT_FOUND"
+                  message:
+                    type: "string"
+                    example: "NOT_FOUND"
+
+  "/memberinfo3/{memberId}:":
+    get:
+      tags:
+        - "メンバー情報取得API"
+      summary:
+        "メンバー情報取得API(3/5)"
+      description:
+        "指定したIDのユーザのメンバー情報を取得します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: "int"
+                  companyName:
+                    type: "string"
+                  employmentType:
+                    type: "string"
+                  position:
+                    type: "string"
+                  startDate:
+                    type: "string"
+                  endDate:
+                    type: "string"
+                  industry:
+                    type: "string"
+                example:
+                  id: "1"
+                  companyName: "株式会社XXX"
+                  employmentType: "Permanent Employee"
+                  position: "CEO"
+                  startDate: "2022/01/01"
+                  endDate: "IT"
         400:
           description: "BadRequest"
           content:
@@ -129,7 +259,7 @@ paths:
                   type:
                     type: "string"
                   comment:
-                    type: "int  "
+                    type: "int"
                 example:
                   id: "1"
                   role: "usr"
