@@ -114,7 +114,7 @@ paths:
                     type: array
                     items:
                       type: string
-                  places_you_lived:
+                  placesYouLived:
                     type: array
                     items:
                       type: string
@@ -124,7 +124,7 @@ paths:
                     - tennis
                     - fishing
                     - camp
-                  places_you_lived:
+                  placesYouLived:
                     - NewYork
                     - Pari
                     - Venetia
@@ -446,7 +446,7 @@ paths:
                   id: "1"
                   role: "usr"
                   pass: "123456password"
-                  pass_reset: "1"
+                  passReset: "1"
         400:
           description: "BadRequest"
           content:
