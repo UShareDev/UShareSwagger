@@ -8,7 +8,7 @@ paths:
       tags:
         - "メンバー情報取得API"
       summary:
-        "メンバー情報取得API(1/5)"
+        "メンバー情報取得API"
       description:
         "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
