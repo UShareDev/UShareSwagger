@@ -4,7 +4,7 @@ info:
   title: UShare
 paths:
   "/memberinfo/search/{word}:":
-    get:
+    get:  
       tags:
         - "メンバー情報取得API"
       summary:
@@ -95,6 +95,10 @@ paths:
                     type: "string"
                   major:
                     type: "string"
+                  location:
+                    type: "string"
+                  homeTown:
+                    type: "string"
                   livingPeriodStart:
                     type: "string"
                   livingPeriodEnd:
@@ -112,6 +116,7 @@ paths:
                   university: "Waseda University"
                   major: "Architecture"
                   location: "U Share Nishiwaseda"
+                  homeTown: "Osaka"
                   livingPeriodStart: "2023/01/01"
                   livingPeriodEnd: "2024/12/31"
                   link1: "(InstagramURL)"
@@ -415,6 +420,31 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
+
+  "member/icon/{memberId}:":
+    get:
+      operationId: 'sample_icon'
+      tags:
+        - "メンバー情報アイコン取得API"
+      summary:
+        "メンバー情報アイコン取得API"
+      description:
+        "指定したIDのユーザのメンバー情報を取得します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: アイコン画像ファイルでダウンロードするエンドポイント
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
 
   "member/cv/{memberId}:":
     get:
