@@ -317,7 +317,7 @@ paths:
                     type: array
                     items:
                       type: string
-                  WannaConnectWith:
+                  wannaConnectWith:
                     type: array
                     items:
                       type: string
@@ -328,7 +328,7 @@ paths:
                     - technology
                     - economics
                     - finance
-                  WannaConnectWith:
+                  wannaConnectWith:
                     - interestedin1
                     - interestedin2
                     - interestedin3
