@@ -198,7 +198,8 @@ paths:
                   employmentType: "Permanent Employee"
                   position: "CEO"
                   startDate: "2022/01/01"
-                  endDate: "IT"
+                  endDate: "2023/12/31"
+                  industry: "IT"
         400:
           description: "BadRequest"
           content:
