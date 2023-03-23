@@ -60,11 +60,15 @@ paths:
                     type: "string"
                   emergencyPhoneNumber:
                     type: "string"
+                  snsType:
+                    type: "int"
+                  snsId:
+                    type: "string"
                 example:
-                  id: "1"
+                  id: 1
                   fullName: "山田 太郎"
-                  gender: "0"
-                  country: "1"
+                  gender: 0
+                  country: 1
                   birthday: "2001/01/01"
                   postalCode: "1638001"
                   address: "新宿区西新宿2-8-1"
@@ -78,6 +82,8 @@ paths:
                   emergencyRelationship: "母"
                   emergencyEmail: "motherEmail@example.com"
                   emergencyPhoneNumber: "011-231-4111"
+                  snsType: 0
+                  snsId: "XYZ0123456"
         400:
           description: "BadRequest"
           content:
