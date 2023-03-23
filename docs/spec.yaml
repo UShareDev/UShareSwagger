@@ -110,6 +110,68 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
+  "/contract2/{memberId}:":
+    get:
+      tags:
+        - "メンバー契約情報取得API"
+      summary:
+        "メンバー契約情報取得API(2/5)"
+      description:
+        "指定したIDのユーザのメンバー情報を取得します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: "int"
+                  beginDateContract:
+                    type: "string"
+                  endDateContract:
+                    type: "string"
+                  arrivalTime:
+                    type: "string"
+                example:
+                  id: "1"
+                  beginDateContract: "2023/04/01"
+                  endDateContract: "2025/03/31"
+                  arrivalTime: "09:30"
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "BAD_REQUEST"
+                  message:
+                    type: "string"
+                    example: "BAD_REQUEST"
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "NOT_FOUND"
+                  message:
+                    type: "string"
+                    example: "NOT_FOUND"
   "/memberinfo/search/{word}:":
     get:  
       tags:
