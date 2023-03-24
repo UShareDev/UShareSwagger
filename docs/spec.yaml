@@ -65,6 +65,64 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
+
+  "/search/contract/{keyword}:":
+    get:
+      tags:
+        - "メンバー契約情報検索API"
+      summary:
+        "メンバーステータス情報検索API"
+      description:
+        "指定したIDのユーザのステータス情報を取得します。"
+      parameters:
+        - name: "keyword"
+          in: "path"
+          description: "取得したいメンバーの検索ワード"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  placesYouLived:
+                    type: array
+                    items:
+                      type: member                      
+                example:
+                  memberList:
+                    - {id: 1, fullName: "X"}
+                    - {id: 2, fullName: "Y"}
+                    - {id: 3, fullName: "Z"}
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "BAD_REQUEST"
+                  message:
+                    type: "string"
+                    example: "BAD_REQUEST"
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "NOT_FOUND"
+                  message:
+                    type: "string"
+                    example: "NOT_FOUND"
   "/contract1/{memberId}:":
     get:
       tags:
@@ -785,7 +843,7 @@ paths:
                     type: "string"
                     example: "NOT_FOUND"
 
-  "member/icon/{memberId}:":
+  "/member/icon/{memberId}:":
     get:
       operationId: 'sample_icon'
       tags:
@@ -810,7 +868,7 @@ paths:
                 type: string
                 format: binary
 
-  "member/cv/{memberId}:":
+  "/member/cv/{memberId}:":
     get:
       operationId: 'sample_pdf'
       tags:
@@ -835,7 +893,7 @@ paths:
                 type: string
                 format: binary
 
-  "member/movie/{memberId}:":
+  "/member/movie/{memberId}:":
     get:
       operationId: 'sample_movie'
       tags:
