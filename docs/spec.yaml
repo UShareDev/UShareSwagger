@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: UShare
 paths:
-  "/menu/{memberId}:":
+  "/status/{memberId}:":
     get:
       tags:
         - "メンバーステータス情報取得API"
@@ -860,7 +860,7 @@ paths:
                 type: string
                 format: binary
 
-  "/pass":
+  "/login":
     post:
       tags:
         - "ログイン情報取得API"
@@ -874,7 +874,7 @@ paths:
           description: "ユーザのメールアドレス"
           required: true
           type: "string"
-        - name: "pass"
+        - name: "password"
           in: "formData"
           description: "ユーザのパスワード"
           required: true
@@ -898,7 +898,7 @@ paths:
                 example:
                   id: "1"
                   role: "usr"
-                  pass: "123456password"
+                  password: "123456password"
                   passReset: "1"
         400:
           description: "BadRequest"
