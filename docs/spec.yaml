@@ -7,10 +7,8 @@ paths:
     get:
       tags:
         - "メンバーステータス情報取得API"
-      summary:
-        "メンバーステータス情報取得API"
-      description:
-        "指定したIDのユーザのステータス情報を取得します。"
+      summary: "メンバーステータス情報取得API"
+      description: "指定したIDのユーザのステータス情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -70,10 +68,8 @@ paths:
     get:
       tags:
         - "メンバー契約情報検索API"
-      summary:
-        "メンバーステータス情報検索API"
-      description:
-        "指定したIDのユーザのステータス情報を取得します。"
+      summary: "メンバーステータス情報検索API"
+      description: "指定したIDのユーザのステータス情報を取得します。"
       parameters:
         - name: "keyword"
           in: "path"
@@ -91,12 +87,12 @@ paths:
                   placesYouLived:
                     type: array
                     items:
-                      type: member                      
+                      type: member
                 example:
                   memberList:
-                    - {id: 1, fullName: "X"}
-                    - {id: 2, fullName: "Y"}
-                    - {id: 3, fullName: "Z"}
+                    - { id: 1, fullName: "X" }
+                    - { id: 2, fullName: "Y" }
+                    - { id: 3, fullName: "Z" }
         400:
           description: "BadRequest"
           content:
@@ -127,10 +123,8 @@ paths:
     get:
       tags:
         - "メンバー契約情報取得API"
-      summary:
-        "メンバー契約情報取得API(1/4)"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー契約情報取得API(1/4)"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -234,10 +228,8 @@ paths:
     get:
       tags:
         - "メンバー契約情報取得API"
-      summary:
-        "メンバー契約情報取得API(2/4)"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー契約情報取得API(2/4)"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -296,10 +288,8 @@ paths:
     get:
       tags:
         - "メンバー契約情報取得API"
-      summary:
-        "メンバー契約情報取得API(3/4)"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー契約情報取得API(3/4)"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -329,8 +319,8 @@ paths:
                   id: "1"
                   idCardFrontImg: "(BinaryStringData)"
                   idCardBackImg: "(BinaryStringData)"
-                  healthInsCardFrontImg:  "(BinaryStringData)"
-                  healthInsCardBackImg:  "(BinaryStringData)"
+                  healthInsCardFrontImg: "(BinaryStringData)"
+                  healthInsCardBackImg: "(BinaryStringData)"
         400:
           description: "BadRequest"
           content:
@@ -361,10 +351,8 @@ paths:
     get:
       tags:
         - "メンバー契約情報取得API"
-      summary:
-        "メンバー契約情報取得API(4/4)"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー契約情報取得API(4/4)"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -426,13 +414,11 @@ paths:
                     type: "string"
                     example: "NOT_FOUND"
   "/memberinfo/search/{word}:":
-    get:  
+    get:
       tags:
         - "メンバー情報取得API"
-      summary:
-        "メンバー情報取得API"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー情報取得API"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "word"
           in: "path"
@@ -451,12 +437,30 @@ paths:
                     type: array
                     items:
                       type: memberId
-                      
+
                 example:
                   memberList:
-                    - {id: 1, fullName: "X", university: "X Univ", birthday : "YYYY/MM/DD", major: "X major"}
-                    - {id: 2, fullName: "Y", university: "Y Univ", birthday : "YYYY/MM/DD", major: "X major"}
-                    - {id: 3, fullName: "Z", university: "Z Univ", birthday : "YYYY/MM/DD", major: "X major"}
+                    - {
+                        id: 1,
+                        fullName: "X",
+                        university: "X Univ",
+                        birthday: "YYYY/MM/DD",
+                        major: "X major",
+                      }
+                    - {
+                        id: 2,
+                        fullName: "Y",
+                        university: "Y Univ",
+                        birthday: "YYYY/MM/DD",
+                        major: "X major",
+                      }
+                    - {
+                        id: 3,
+                        fullName: "Z",
+                        university: "Z Univ",
+                        birthday: "YYYY/MM/DD",
+                        major: "X major",
+                      }
 
         400:
           description: "BadRequest"
@@ -488,10 +492,8 @@ paths:
     get:
       tags:
         - "メンバー情報取得API"
-      summary:
-        "メンバー情報取得API(1/5)"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー情報取得API(1/5)"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -575,10 +577,8 @@ paths:
     get:
       tags:
         - "メンバー情報取得API"
-      summary:
-        "メンバー情報取得API(2/5)"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー情報取得API(2/5)"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -645,10 +645,8 @@ paths:
     get:
       tags:
         - "メンバー情報取得API"
-      summary:
-        "メンバー情報取得API(3/5)"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー情報取得API(3/5)"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -717,10 +715,8 @@ paths:
     get:
       tags:
         - "メンバー情報取得API"
-      summary:
-        "メンバー情報取得API(4/5)"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー情報取得API(4/5)"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -790,10 +786,8 @@ paths:
     get:
       tags:
         - "メンバー情報取得API"
-      summary:
-        "メンバー情報取得API(5/5)"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー情報取得API(5/5)"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -845,13 +839,11 @@ paths:
 
   "/member/icon/{memberId}:":
     get:
-      operationId: 'sample_icon'
+      operationId: "sample_icon"
       tags:
         - "メンバー情報アイコン取得API"
-      summary:
-        "メンバー情報アイコン取得API"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー情報アイコン取得API"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -870,13 +862,11 @@ paths:
 
   "/member/cv/{memberId}:":
     get:
-      operationId: 'sample_pdf'
+      operationId: "sample_pdf"
       tags:
         - "メンバー情報PDF取得API"
-      summary:
-        "メンバー情報PDF取得API"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー情報PDF取得API"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -895,13 +885,11 @@ paths:
 
   "/member/movie/{memberId}:":
     get:
-      operationId: 'sample_movie'
+      operationId: "sample_movie"
       tags:
         - "メンバー情報動画取得API"
-      summary:
-        "メンバー情報動画取得API"
-      description:
-        "指定したIDのユーザのメンバー情報を取得します。"
+      summary: "メンバー情報動画取得API"
+      description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -922,10 +910,8 @@ paths:
     post:
       tags:
         - "ログイン情報取得API"
-      summary:
-        "ログイン情報取得API"
-      description:
-        "指定したIDのユーザを検索・パスワードチェックし、ログイン情報を取得します。"
+      summary: "ログイン情報取得API"
+      description: "指定したIDのユーザを検索・パスワードチェックし、ログイン情報を取得します。"
       parameters:
         - name: "email"
           in: "formData"
@@ -954,10 +940,10 @@ paths:
                   comment:
                     type: "int"
                 example:
-                  id: "1"
+                  id: 1
                   role: "usr"
                   password: "123456password"
-                  passReset: "1"
+                  passReset: 1
         400:
           description: "BadRequest"
           content:
