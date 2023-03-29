@@ -913,7 +913,7 @@ paths:
       summary: "ログイン情報取得API"
       description: "指定したIDのユーザを検索・パスワードチェックし、ログイン情報を取得します。"
       parameters:
-        - name: "email"
+        - name: "mail"
           in: "formData"
           description: "ユーザのメールアドレス"
           required: true
