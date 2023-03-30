@@ -119,7 +119,7 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
-  "/contract1/{memberId}:":
+  "/contract/base/{memberId}:":
     get:
       tags:
         - "メンバー契約情報取得API"
@@ -224,7 +224,7 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
-  "/contract2/{memberId}:":
+  "/contract/basic/{memberId}:":
     get:
       tags:
         - "メンバー契約情報取得API"
@@ -284,7 +284,7 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
-  "/contract3/{memberId}:":
+  "/contract/image/{memberId}:":
     get:
       tags:
         - "メンバー契約情報取得API"
@@ -347,7 +347,7 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
-  "/contract4/{memberId}:":
+  "/contract/questionnaire/{memberId}:":
     get:
       tags:
         - "メンバー契約情報取得API"
