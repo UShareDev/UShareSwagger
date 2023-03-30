@@ -488,7 +488,7 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
-  "/memberinfo1/{memberId}:":
+  "/memberinfo/base/{memberId}:":
     get:
       tags:
         - "メンバー情報取得API"
@@ -573,7 +573,7 @@ paths:
                     type: "string"
                     example: "NOT_FOUND"
 
-  "/memberinfo2/{memberId}:":
+  "/memberinfo/hobby/{memberId}:":
     get:
       tags:
         - "メンバー情報取得API"
@@ -641,7 +641,7 @@ paths:
                     type: "string"
                     example: "NOT_FOUND"
 
-  "/memberinfo3/{memberId}:":
+  "/memberinfo/professional/{memberId}:":
     get:
       tags:
         - "メンバー情報取得API"
@@ -711,7 +711,7 @@ paths:
                     type: "string"
                     example: "NOT_FOUND"
 
-  "/memberinfo4/{memberId}:":
+  "/memberinfo/skills/{memberId}:":
     get:
       tags:
         - "メンバー情報取得API"
@@ -782,7 +782,7 @@ paths:
                     type: "string"
                     example: "NOT_FOUND"
 
-  "/memberinfo5/{memberId}:":
+  "/memberinfo/selfintro/{memberId}:":
     get:
       tags:
         - "メンバー情報取得API"
