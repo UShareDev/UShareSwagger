@@ -63,7 +63,61 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
-
+    post:
+      tags:
+        - "メンバーステータス情報取得API"
+      summary: "メンバーステータス情報登録API"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "登録したいメンバーのID"
+          required: true
+          type: "string"
+      requestBody:
+        description: "登録したいメンバーのステータス情報"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                status:
+                  type: "int"
+                guaranteeStatus:
+                  type: "int"
+                contractStatus:
+                  type: "int"
+              example:
+                id: 1
+                status: 2
+                guaranteeStatus: 1
+                contractStatus: 1
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  success:
+                    type: "string"
+                    example: "REGISTERED"
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: string
+                    example: BAD_REQUEST
+                  message:
+                    type: string
+                    example: "BAD_REQUEST"
   "/search/contract/{keyword}:":
     get:
       tags:
