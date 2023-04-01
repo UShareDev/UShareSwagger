@@ -201,7 +201,7 @@ paths:
                   gender:
                     type: "int"
                   country:
-                    type: "int"
+                    type: "string"
                   birthday:
                     type: "string"
                   postalCode:
@@ -236,7 +236,7 @@ paths:
                   id: 1
                   fullName: "山田 太郎"
                   gender: 0
-                  country: 1
+                  country: "JA"
                   birthday: "2001/01/01"
                   postalCode: "1638001"
                   address: "新宿区西新宿2-8-1"
