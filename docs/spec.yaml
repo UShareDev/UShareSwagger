@@ -63,16 +63,11 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
+  "/status":
     post:
       tags:
         - "メンバーステータス情報取得API"
       summary: "メンバーステータス情報登録API"
-      parameters:
-        - name: "memberId"
-          in: "path"
-          description: "登録したいメンバーのID"
-          required: true
-          type: "string"
       requestBody:
         description: "登録したいメンバーのステータス情報"
         required: true
