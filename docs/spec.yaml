@@ -278,7 +278,7 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
-  "/contract/basic/{memberId}:":
+  "/contract/date/{memberId}:":
     get:
       tags:
         - "メンバー契約情報取得API"
