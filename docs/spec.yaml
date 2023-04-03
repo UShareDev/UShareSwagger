@@ -1125,6 +1125,52 @@ paths:
                     resultCode: 404
                   data: null
 
+    delete:
+      tags:
+        - "メンバー情報取得API"
+      summary: "メンバー情報削除API"
+      description: "指定したIDのメンバー情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
   "/memberinfo/base":
     post:
       tags:
@@ -1274,6 +1320,52 @@ paths:
                     resultCode: 404
                   data: null
 
+    delete:
+      tags:
+        - "メンバー情報取得API"
+      summary: "メンバー情報削除API"
+      description: "指定したIDのメンバー情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
   "/memberinfo/hobby":
     post:
       tags:
@@ -1391,6 +1483,52 @@ paths:
                     startDate: "2022/01/01"
                     endDate: "2023/12/31"
                     industry: "IT"
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+    delete:
+      tags:
+        - "メンバー情報取得API"
+      summary: "メンバー情報削除API"
+      description: "指定したIDのメンバー情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
         404:
           desctiption: "NotFound"
           content:
@@ -1545,6 +1683,52 @@ paths:
                     resultCode: 404
                   data: null
 
+    delete:
+      tags:
+        - "メンバー情報取得API"
+      summary: "メンバー情報削除API"
+      description: "指定したIDのメンバー情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
   "/memberinfo/skills":
     post:
       tags:
@@ -1650,6 +1834,52 @@ paths:
                   data:
                     id: "1"
                     selfIntro: "selfIntroXXX150char"
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+    delete:
+      tags:
+        - "メンバー情報取得API"
+      summary: "メンバー情報削除API"
+      description: "指定したIDのメンバー情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
         404:
           desctiption: "NotFound"
           content:
