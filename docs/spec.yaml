@@ -1088,6 +1088,73 @@ paths:
                     resultCode: 404
                   data: null
 
+  "/memberinfo/hobby":
+    post:
+      tags:
+        - "メンバー情報取得API"
+      summary: "メンバー情報取得API(2/5)"
+      requestBody:
+        description: "メンバー情報取得API(2/5)"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                hobby:
+                  type: array
+                  items:
+                    type: string
+                placesYouLived:
+                  type: array
+                  items:
+                    type: string
+              example:
+                id: "1"
+                hobby:
+                  - tennis
+                  - fishing
+                  - camp
+                placesYouLived:
+                  - NewYork
+                  - Pari
+                  - Venetia
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/memberinfo/professional/{memberId}:":
     get:
       tags:
