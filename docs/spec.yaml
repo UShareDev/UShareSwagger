@@ -1194,7 +1194,7 @@ paths:
     get:
       operationId: "sample_icon"
       tags:
-        - "メンバー情報アイコン取得API"
+        - "メンバー情報アイコンAPI"
       summary: "メンバー情報アイコン取得API"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -1213,11 +1213,66 @@ paths:
                 type: string
                 format: byte
 
+  "/member/icon":
+    post:
+      tags:
+        - "メンバー情報アイコンAPI"
+      summary: "メンバー情報アイコン登録API"
+      requestBody:
+        description: "メンバー情報アイコン登録API"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                icon:
+                  type: "integer"
+                  format: "int64"
+              example:
+                id: "1"
+                icon: "iconBinary"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/member/cv/{memberId}:":
     get:
       operationId: "sample_pdf"
       tags:
-        - "メンバー情報PDF取得API"
+        - "メンバー情報PDFAPI"
       summary: "メンバー情報PDF取得API"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -1235,6 +1290,61 @@ paths:
               schema:
                 type: string
                 format: byte
+
+  "/member/cv":
+    post:
+      tags:
+        - "メンバー情報PDFAPI"
+      summary: "メンバー情報PDF登録API"
+      requestBody:
+        description: "メンバー情報PDF登録API"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                cv:
+                  type: "integer"
+                  format: "int64"
+              example:
+                id: "1"
+                cv: "cvBinary"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
 
   "/member/movie/{memberId}:":
     get:
