@@ -405,9 +405,9 @@ paths:
   "/contract/date/{memberId}:":
     get:
       tags:
-        - "メンバー契約情報取得API"
+        - "メンバー契約情報API"
       summary: "メンバー契約情報取得API(2/4)"
-      description: "指定したIDのユーザのメンバー情報を取得します。"
+      description: "指定したIDのユーザの契約情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -432,6 +432,8 @@ paths:
                       beginDateContract:
                         type: "string"
                       endDateContract:
+                        type: "string"
+                      arrivalDate:
                         type: "string"
                       arrivalTime:
                         type: "string"
@@ -459,10 +461,73 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+
+  "/contract/date":
+    post:
+      tags:
+        - "メンバー契約情報API"
+      summary: "メンバー契約情報取得API(2/4)"
+      requestBody:
+        description: "登録したいメンバーの契約情報(2/4)"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                beginDateContract:
+                  type: "string"
+                endDateContract:
+                  type: "string"
+                arrivalDate:
+                  type: "string"
+                arrivalTime:
+                  type: "string"
+              example:
+                id: "1"
+                beginDateContract: "2023/04/01"
+                endDateContract: "2025/03/31"
+                arrivalTime: "09:30"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/contract/image/{memberId}:":
     get:
       tags:
-        - "メンバー契約情報取得API"
+        - "メンバー契約情報API"
       summary: "メンバー契約情報取得API(3/4)"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -523,10 +588,78 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+
+  "/contract/image":
+    post:
+      tags:
+        - "メンバー契約情報API"
+      summary: "メンバー契約情報取得API(3/4)"
+      requestBody:
+        description: "登録したいメンバーの契約情報(3/4)"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                idCardFrontImg:
+                  type: string
+                  format: byte
+                idCardBackImg:
+                  type: string
+                  format: byte
+                healthInsCardFrontImg:
+                  type: string
+                  format: byte
+                healthInsCardBackImg:
+                  type: string
+                  format: byte
+              example:
+                id: "1"
+                idCardFrontImg: "(BinaryStringData)"
+                idCardBackImg: "(BinaryStringData)"
+                healthInsCardFrontImg: "(BinaryStringData)"
+                healthInsCardBackImg: "(BinaryStringData)"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/contract/questionnaire/{memberId}:":
     get:
       tags:
-        - "メンバー契約情報取得API"
+        - "メンバー契約情報API"
       summary: "メンバー契約情報取得API(4/4)"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -586,6 +719,73 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+
+  "/contract/questionnaire":
+    post:
+      tags:
+        - "メンバー契約情報API"
+      summary: "メンバー契約情報取得API(4/4)"
+      requestBody:
+        description: "登録したいメンバーの契約情報(4/4)"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                prefRoomType:
+                  type: "int"
+                sensitiveLevelToMessiness:
+                  type: "int"
+                sensitiveLevelToNoise:
+                  type: "int"
+                sensitiveLevelToTemperature:
+                  type: "int"
+                prefDietType:
+                  type: "int"
+              example:
+                id: 1
+                prefRoomType: 2
+                sensitiveLevelToMessiness: 1
+                sensitiveLevelToNoise: 3
+                sensitiveLevelToTemperature: 5
+                prefDietType: 1
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/memberinfo/search/{word}:":
     get:
       tags:
