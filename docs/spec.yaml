@@ -1222,6 +1222,75 @@ paths:
                     resultCode: 404
                   data: null
 
+  "/memberinfo/professional":
+    post:
+      tags:
+        - "メンバー情報取得API"
+      summary: "メンバー情報取得API(3/5)"
+      requestBody:
+        description: "メンバー情報取得API(3/5)"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                companyName:
+                  type: "string"
+                employmentType:
+                  type: "string"
+                position:
+                  type: "string"
+                startDate:
+                  type: "string"
+                endDate:
+                  type: "string"
+                industry:
+                  type: "string"
+              example:
+                id: "1"
+                companyName: "株式会社XXX"
+                employmentType: "Permanent Employee"
+                position: "CEO"
+                startDate: "2022/01/01"
+                endDate: "2023/12/31"
+                industry: "IT"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/memberinfo/skills/{memberId}:":
     get:
       tags:
