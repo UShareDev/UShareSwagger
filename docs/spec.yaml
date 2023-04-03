@@ -137,6 +137,7 @@ paths:
                   header:
                     resultCode: 400
                   data: null
+
   "/contract/search/{keyword}:":
     get:
       tags:
@@ -194,6 +195,7 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+
   "/contract/base/{memberId}:":
     get:
       tags:
@@ -280,6 +282,52 @@ paths:
                     emergencyPhoneNumber: "011-231-4111"
                     snsType: 0
                     snsId: "XYZ0123456"
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+    delete:
+      tags:
+        - "メンバー契約情報API"
+      summary: "メンバー契約情報API"
+      description: "指定したIDのメンバー契約情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
         404:
           desctiption: "NotFound"
           content:
