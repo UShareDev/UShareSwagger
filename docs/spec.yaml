@@ -28,7 +28,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       status:
                         type: "int"
@@ -40,7 +40,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: 1
+                    userId: 1
                     status: 2
                     guaranteeStatus: 1
                     contractStatus: 1
@@ -73,7 +73,7 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 menuStatus:
                   type: "int"
@@ -94,7 +94,7 @@ paths:
                 contractCompleted:
                   type: "int"
               example:
-                id: 1
+                userId: 1
                 menuStatus: 1
                 contractStatus: 0
                 commissionStatus: 0
@@ -167,7 +167,7 @@ paths:
                         items:
                           type: object
                           properties:
-                            id:
+                            userId:
                               type: integer
                             fullName:
                               type: string
@@ -176,9 +176,9 @@ paths:
                     resultCode: 200
                   data:
                     memberList:
-                      - { id: 1, fullName: "X" }
-                      - { id: 2, fullName: "Y" }
-                      - { id: 3, fullName: "Z" }
+                      - { userId: 1, fullName: "X" }
+                      - { userId: 2, fullName: "Y" }
+                      - { userId: 3, fullName: "Z" }
         404:
           desctiption: "NotFound"
           content:
@@ -221,7 +221,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       fullName:
                         type: "string"
@@ -263,7 +263,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: 1
+                    userId: 1
                     fullName: "山田 太郎"
                     gender: 0
                     country: "JA"
@@ -358,7 +358,7 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 fullName:
                   type: "string"
@@ -397,7 +397,7 @@ paths:
                 snsId:
                   type: "string"
               example:
-                id: 1
+                userId: 1
                 fullName: "山田 太郎"
                 gender: 0
                 country: "JA"
@@ -475,7 +475,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       beginDateContract:
                         type: "string"
@@ -489,7 +489,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: "1"
+                    userId: "1"
                     beginDateContract: "2023/04/01"
                     endDateContract: "2025/03/31"
                     arrivalTime: "09:30"
@@ -569,7 +569,7 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 beginDateContract:
                   type: "string"
@@ -580,7 +580,7 @@ paths:
                 arrivalTime:
                   type: "string"
               example:
-                id: "1"
+                userId: "1"
                 beginDateContract: "2023/04/01"
                 endDateContract: "2025/03/31"
                 arrivalTime: "09:30"
@@ -643,7 +643,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       idCardFrontImg:
                         type: string
@@ -661,7 +661,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: "1"
+                    userId: "1"
                     idCardFrontImg: "(BinaryStringData)"
                     idCardBackImg: "(BinaryStringData)"
                     healthInsCardFrontImg: "(BinaryStringData)"
@@ -742,7 +742,7 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 idCardFrontImg:
                   type: string
@@ -757,7 +757,7 @@ paths:
                   type: string
                   format: byte
               example:
-                id: "1"
+                userId: "1"
                 idCardFrontImg: "(BinaryStringData)"
                 idCardBackImg: "(BinaryStringData)"
                 healthInsCardFrontImg: "(BinaryStringData)"
@@ -821,7 +821,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       prefRoomType:
                         type: "int"
@@ -837,7 +837,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: 1
+                    userId: 1
                     prefRoomType: 2
                     sensitiveLevelToMessiness: 1
                     sensitiveLevelToNoise: 3
@@ -919,7 +919,7 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 prefRoomType:
                   type: "int"
@@ -932,7 +932,7 @@ paths:
                 prefDietType:
                   type: "int"
               example:
-                id: 1
+                userId: 1
                 prefRoomType: 2
                 sensitiveLevelToMessiness: 1
                 sensitiveLevelToNoise: 3
@@ -1006,21 +1006,21 @@ paths:
                   data:
                     memberList:
                       - {
-                          id: 1,
+                          userId: 1,
                           fullName: "X",
                           university: "X Univ",
                           birthday: "YYYY/MM/DD",
                           major: "X major",
                         }
                       - {
-                          id: 2,
+                          userId: 2,
                           fullName: "Y",
                           university: "Y Univ",
                           birthday: "YYYY/MM/DD",
                           major: "X major",
                         }
                       - {
-                          id: 3,
+                          userId: 3,
                           fullName: "Z",
                           university: "Z Univ",
                           birthday: "YYYY/MM/DD",
@@ -1068,7 +1068,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       fullName:
                         type: "string"
@@ -1096,7 +1096,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: "1"
+                    userId: "1"
                     fullName: "Yamada Taro"
                     birthday: "04/01"
                     university: "Waseda University"
@@ -1184,7 +1184,7 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 fullName:
                   type: "string"
@@ -1209,7 +1209,7 @@ paths:
                 link3:
                   type: "string"
               example:
-                id: "1"
+                userId: "1"
                 fullName: "Yamada Taro"
                 birthday: "04/01"
                 university: "Waseda University"
@@ -1280,7 +1280,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       hobby:
                         type: array
@@ -1294,7 +1294,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: "1"
+                    userId: "1"
                     hobby:
                       - tennis
                       - fishing
@@ -1379,7 +1379,7 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 hobby:
                   type: array
@@ -1390,7 +1390,7 @@ paths:
                   items:
                     type: string
               example:
-                id: "1"
+                userId: "1"
                 hobby:
                   - tennis
                   - fishing
@@ -1458,7 +1458,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       companyName:
                         type: "string"
@@ -1476,7 +1476,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: "1"
+                    userId: "1"
                     companyName: "株式会社XXX"
                     employmentType: "Permanent Employee"
                     position: "CEO"
@@ -1559,7 +1559,7 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 companyName:
                   type: "string"
@@ -1574,7 +1574,7 @@ paths:
                 industry:
                   type: "string"
               example:
-                id: "1"
+                userId: "1"
                 companyName: "株式会社XXX"
                 employmentType: "Permanent Employee"
                 position: "CEO"
@@ -1640,7 +1640,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       role:
                         type: "string"
@@ -1656,7 +1656,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: "1"
+                    userId: "1"
                     role: "Manager"
                     skills:
                       - technology
@@ -1742,7 +1742,7 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 role:
                   type: "string"
@@ -1755,7 +1755,7 @@ paths:
                   items:
                     type: string
               example:
-                id: "1"
+                userId: "1"
                 role: "Manager"
                 skills:
                   - technology
@@ -1824,7 +1824,7 @@ paths:
                     resultCode:
                       type: "int"
                     data:
-                      id:
+                      userId:
                         type: "int"
                       selfIntro:
                         type: "string"
@@ -1832,7 +1832,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    id: "1"
+                    userId: "1"
                     selfIntro: "selfIntroXXX150char"
         404:
           desctiption: "NotFound"
@@ -1910,12 +1910,12 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 selfIntro:
                   type: "string"
               example:
-                id: "1"
+                userId: "1"
                 role: "Manager"
                 skills:
                   - technology
@@ -1939,7 +1939,7 @@ paths:
                     data:
                       type: "object"
                 example:
-                  id: "1"
+                  userId: "1"
                   selfIntro: "selfIntroXXX150char"
         400:
           description: "BadRequest"
@@ -2040,13 +2040,13 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 icon:
                   type: "integer"
                   format: "int64"
               example:
-                id: "1"
+                userId: "1"
                 icon: "iconBinary"
       responses:
         201:
@@ -2164,13 +2164,13 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 cv:
                   type: "integer"
                   format: "int64"
               example:
-                id: "1"
+                userId: "1"
                 cv: "cvBinary"
       responses:
         201:
@@ -2232,7 +2232,7 @@ paths:
                 header:
                   resultCode: 200
                 data:
-                  id: "1"
+                  userId: "1"
                   movie: "movieBinary"
 
     delete:
@@ -2294,13 +2294,13 @@ paths:
             schema:
               type: "object"
               properties:
-                id:
+                userId:
                   type: "int"
                 movie:
                   type: "integer"
                   format: "int64"
               example:
-                id: "1"
+                userId: "1"
                 movie: "movieBinary"
       responses:
         201:
