@@ -1008,3 +1008,49 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+  "/user/{memberId}:":
+    delete:
+      tags:
+        - "ユーザ削除API"
+      summary: "ユーザ削除API"
+      description: "指定したIDのユーザを削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
