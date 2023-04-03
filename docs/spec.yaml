@@ -197,7 +197,7 @@ paths:
   "/contract/base/{memberId}:":
     get:
       tags:
-        - "メンバー契約情報取得API"
+        - "メンバー契約情報API"
       summary: "メンバー契約情報取得API(1/4)"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -296,6 +296,112 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+
+  "/contract/base":
+    post:
+      tags:
+        - "メンバー契約情報API"
+      summary: "メンバー契約情報登録API(1/4)"
+      requestBody:
+        description: "登録したいメンバーの契約情報(1/4)"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                fullName:
+                  type: "string"
+                gender:
+                  type: "int"
+                country:
+                  type: "string"
+                birthday:
+                  type: "string"
+                postalCode:
+                  type: "string"
+                address:
+                  type: "string"
+                phoneNumber:
+                  type: "string"
+                schoolOrWorkplace:
+                  type: "string"
+                workplaceAddress:
+                  type: "string"
+                workplaceNumber:
+                  type: "string"
+                emergencyFullName:
+                  type: "string"
+                emergencyFullNamePron:
+                  type: "string"
+                emergencyAddress:
+                  type: "string"
+                emergencyRelationship:
+                  type: "string"
+                emergencyEmail:
+                  type: "string"
+                emergencyPhoneNumber:
+                  type: "string"
+                snsType:
+                  type: "int"
+                snsId:
+                  type: "string"
+              example:
+                id: 1
+                fullName: "山田 太郎"
+                gender: 0
+                country: "JA"
+                birthday: "2001/01/01"
+                postalCode: "1638001"
+                address: "新宿区西新宿2-8-1"
+                phoneNumber: "03-5321-1111"
+                schoolOrWorkplace: "市役所"
+                workplaceAddress: "横浜市中区日本大通1"
+                workplaceNumber: "045-210-1111"
+                emergencyFullName: "山田 花子"
+                emergencyFullNamePron: "Yamada Hanako"
+                emergencyAddress: "札幌市中央区北3条西6丁目"
+                emergencyRelationship: "母"
+                emergencyEmail: "motherEmail@example.com"
+                emergencyPhoneNumber: "011-231-4111"
+                snsType: 0
+                snsId: "XYZ0123456"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/contract/date/{memberId}:":
     get:
       tags:
