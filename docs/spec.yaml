@@ -94,16 +94,19 @@ paths:
                 contractCompleted:
                   type: "int"
               example:
-                id: 1
-                menuStatus: 1
-                contractStatus: 0
-                commissionStatus: 0
-                guaranteeStatus: 0
-                explanationStatus: 0
-                signStatus: 0
-                initialPaymentStatus: 0
-                onbordingStatus: 0
-                contractCompleted: 0
+                header:
+                  resultCode: 200
+                data:
+                  id: 1
+                  menuStatus: 1
+                  contractStatus: 0
+                  commissionStatus: 0
+                  guaranteeStatus: 0
+                  explanationStatus: 0
+                  signStatus: 0
+                  initialPaymentStatus: 0
+                  onbordingStatus: 0
+                  contractCompleted: 0
       responses:
         201:
           description: "Success"
@@ -157,20 +160,27 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  memberList:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        fullName:
-                          type: string
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      memberList:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            fullName:
+                              type: string
                 example:
-                  memberList:
-                    - { id: 1, fullName: "X" }
-                    - { id: 2, fullName: "Y" }
-                    - { id: 3, fullName: "Z" }
+                  header:
+                    resultCode: 200
+                  data:
+                    memberList:
+                      - { id: 1, fullName: "X" }
+                      - { id: 2, fullName: "Y" }
+                      - { id: 3, fullName: "Z" }
         404:
           desctiption: "NotFound"
           content:
@@ -247,25 +257,28 @@ paths:
                   snsId:
                     type: "string"
                 example:
-                  id: 1
-                  fullName: "山田 太郎"
-                  gender: 0
-                  country: "JA"
-                  birthday: "2001/01/01"
-                  postalCode: "1638001"
-                  address: "新宿区西新宿2-8-1"
-                  phoneNumber: "03-5321-1111"
-                  schoolOrWorkplace: "市役所"
-                  workplaceAddress: "横浜市中区日本大通1"
-                  workplaceNumber: "045-210-1111"
-                  emergencyFullName: "山田 花子"
-                  emergencyFullNamePron: "Yamada Hanako"
-                  emergencyAddress: "札幌市中央区北3条西6丁目"
-                  emergencyRelationship: "母"
-                  emergencyEmail: "motherEmail@example.com"
-                  emergencyPhoneNumber: "011-231-4111"
-                  snsType: 0
-                  snsId: "XYZ0123456"
+                  header:
+                    resultCode: 200
+                  data:
+                    id: 1
+                    fullName: "山田 太郎"
+                    gender: 0
+                    country: "JA"
+                    birthday: "2001/01/01"
+                    postalCode: "1638001"
+                    address: "新宿区西新宿2-8-1"
+                    phoneNumber: "03-5321-1111"
+                    schoolOrWorkplace: "市役所"
+                    workplaceAddress: "横浜市中区日本大通1"
+                    workplaceNumber: "045-210-1111"
+                    emergencyFullName: "山田 花子"
+                    emergencyFullNamePron: "Yamada Hanako"
+                    emergencyAddress: "札幌市中央区北3条西6丁目"
+                    emergencyRelationship: "母"
+                    emergencyEmail: "motherEmail@example.com"
+                    emergencyPhoneNumber: "011-231-4111"
+                    snsType: 0
+                    snsId: "XYZ0123456"
         404:
           desctiption: "NotFound"
           content:
@@ -312,10 +325,13 @@ paths:
                   arrivalTime:
                     type: "string"
                 example:
-                  id: "1"
-                  beginDateContract: "2023/04/01"
-                  endDateContract: "2025/03/31"
-                  arrivalTime: "09:30"
+                  header:
+                    resultCode: 200
+                  data:
+                    id: "1"
+                    beginDateContract: "2023/04/01"
+                    endDateContract: "2025/03/31"
+                    arrivalTime: "09:30"
         404:
           desctiption: "NotFound"
           content:
@@ -364,11 +380,14 @@ paths:
                   healthInsCardBackImg:
                     type: "string"
                 example:
-                  id: "1"
-                  idCardFrontImg: "(BinaryStringData)"
-                  idCardBackImg: "(BinaryStringData)"
-                  healthInsCardFrontImg: "(BinaryStringData)"
-                  healthInsCardBackImg: "(BinaryStringData)"
+                  header:
+                    resultCode: 200
+                  data:
+                    id: "1"
+                    idCardFrontImg: "(BinaryStringData)"
+                    idCardBackImg: "(BinaryStringData)"
+                    healthInsCardFrontImg: "(BinaryStringData)"
+                    healthInsCardBackImg: "(BinaryStringData)"
         404:
           desctiption: "NotFound"
           content:
@@ -419,12 +438,15 @@ paths:
                   prefDietType:
                     type: "int"
                 example:
-                  id: 1
-                  prefRoomType: 2
-                  sensitiveLevelToMessiness: 1
-                  sensitiveLevelToNoise: 3
-                  sensitiveLevelToTemperature: 5
-                  prefDietType: 1
+                  header:
+                    resultCode: 200
+                  data:
+                    id: 1
+                    prefRoomType: 2
+                    sensitiveLevelToMessiness: 1
+                    sensitiveLevelToNoise: 3
+                    sensitiveLevelToTemperature: 5
+                    prefDietType: 1
         404:
           desctiption: "NotFound"
           content:
@@ -465,30 +487,32 @@ paths:
                     type: array
                     items:
                       type: memberId
-
                 example:
-                  memberList:
-                    - {
-                        id: 1,
-                        fullName: "X",
-                        university: "X Univ",
-                        birthday: "YYYY/MM/DD",
-                        major: "X major",
-                      }
-                    - {
-                        id: 2,
-                        fullName: "Y",
-                        university: "Y Univ",
-                        birthday: "YYYY/MM/DD",
-                        major: "X major",
-                      }
-                    - {
-                        id: 3,
-                        fullName: "Z",
-                        university: "Z Univ",
-                        birthday: "YYYY/MM/DD",
-                        major: "X major",
-                      }
+                  header:
+                    resultCode: 200
+                  data:
+                    memberList:
+                      - {
+                          id: 1,
+                          fullName: "X",
+                          university: "X Univ",
+                          birthday: "YYYY/MM/DD",
+                          major: "X major",
+                        }
+                      - {
+                          id: 2,
+                          fullName: "Y",
+                          university: "Y Univ",
+                          birthday: "YYYY/MM/DD",
+                          major: "X major",
+                        }
+                      - {
+                          id: 3,
+                          fullName: "Z",
+                          university: "Z Univ",
+                          birthday: "YYYY/MM/DD",
+                          major: "X major",
+                        }
         404:
           desctiption: "NotFound"
           content:
@@ -551,18 +575,21 @@ paths:
                   link3:
                     type: "string"
                 example:
-                  id: "1"
-                  fullName: "Yamada Taro"
-                  birthday: "04/01"
-                  university: "Waseda University"
-                  major: "Architecture"
-                  location: "U Share Nishiwaseda"
-                  homeTown: "Osaka"
-                  livingPeriodStart: "2023/01/01"
-                  livingPeriodEnd: "2024/12/31"
-                  link1: "(InstagramURL)"
-                  link2: "(FacebookURL)"
-                  link3: "(LinkedInURL)"
+                  header:
+                    resultCode: 200
+                  data:
+                    id: "1"
+                    fullName: "Yamada Taro"
+                    birthday: "04/01"
+                    university: "Waseda University"
+                    major: "Architecture"
+                    location: "U Share Nishiwaseda"
+                    homeTown: "Osaka"
+                    livingPeriodStart: "2023/01/01"
+                    livingPeriodEnd: "2024/12/31"
+                    link1: "(InstagramURL)"
+                    link2: "(FacebookURL)"
+                    link3: "(LinkedInURL)"
         404:
           desctiption: "NotFound"
           content:
@@ -612,15 +639,18 @@ paths:
                     items:
                       type: string
                 example:
-                  id: "1"
-                  hobby:
-                    - tennis
-                    - fishing
-                    - camp
-                  placesYouLived:
-                    - NewYork
-                    - Pari
-                    - Venetia
+                  header:
+                    resultCode: 200
+                  data:
+                    id: "1"
+                    hobby:
+                      - tennis
+                      - fishing
+                      - camp
+                    placesYouLived:
+                      - NewYork
+                      - Pari
+                      - Venetia
         404:
           desctiption: "NotFound"
           content:
@@ -674,13 +704,16 @@ paths:
                   industry:
                     type: "string"
                 example:
-                  id: "1"
-                  companyName: "株式会社XXX"
-                  employmentType: "Permanent Employee"
-                  position: "CEO"
-                  startDate: "2022/01/01"
-                  endDate: "2023/12/31"
-                  industry: "IT"
+                  header:
+                    resultCode: 200
+                  data:
+                    id: "1"
+                    companyName: "株式会社XXX"
+                    employmentType: "Permanent Employee"
+                    position: "CEO"
+                    startDate: "2022/01/01"
+                    endDate: "2023/12/31"
+                    industry: "IT"
         404:
           desctiption: "NotFound"
           content:
@@ -732,16 +765,19 @@ paths:
                     items:
                       type: string
                 example:
-                  id: "1"
-                  role: "Manager"
-                  skills:
-                    - technology
-                    - economics
-                    - finance
-                  wannaConnectWith:
-                    - interestedin1
-                    - interestedin2
-                    - interestedin3
+                  header:
+                    resultCode: 200
+                  data:
+                    id: "1"
+                    role: "Manager"
+                    skills:
+                      - technology
+                      - economics
+                      - finance
+                    wannaConnectWith:
+                      - interestedin1
+                      - interestedin2
+                      - interestedin3
         404:
           desctiption: "NotFound"
           content:
@@ -785,8 +821,11 @@ paths:
                   selfIntro:
                     type: "string"
                 example:
-                  id: "1"
-                  selfIntro: "selfIntroXXX150char"
+                  header:
+                    resultCode: 200
+                  data:
+                    id: "1"
+                    selfIntro: "selfIntroXXX150char"
         404:
           desctiption: "NotFound"
           content:
@@ -906,10 +945,13 @@ paths:
                   comment:
                     type: "int"
                 example:
-                  id: 1
-                  role: "usr"
-                  password: "123456password"
-                  passReset: 1
+                  header:
+                    resultCode: 200
+                  data:
+                    id: 1
+                    role: "usr"
+                    password: "123456password"
+                    passReset: 1
         404:
           desctiption: "NotFound"
           content:
