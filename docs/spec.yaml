@@ -94,19 +94,16 @@ paths:
                 contractCompleted:
                   type: "int"
               example:
-                header:
-                  resultCode: 200
-                data:
-                  id: 1
-                  menuStatus: 1
-                  contractStatus: 0
-                  commissionStatus: 0
-                  guaranteeStatus: 0
-                  explanationStatus: 0
-                  signStatus: 0
-                  initialPaymentStatus: 0
-                  onbordingStatus: 0
-                  contractCompleted: 0
+                id: 1
+                menuStatus: 1
+                contractStatus: 0
+                commissionStatus: 0
+                guaranteeStatus: 0
+                explanationStatus: 0
+                signStatus: 0
+                initialPaymentStatus: 0
+                onbordingStatus: 0
+                contractCompleted: 0
       responses:
         201:
           description: "Success"
@@ -950,50 +947,29 @@ paths:
               schema:
                 type: string
                 format: binary
-
   "/login":
     post:
       tags:
         - "ログイン情報取得API"
       summary: "ログイン情報取得API"
-      description: "指定したIDのユーザを検索・パスワードチェックし、ログイン情報を取得します。"
-      parameters:
-        - name: "mail"
-          in: "formData"
-          description: "ユーザのメールアドレス"
-          required: true
-          type: "string"
-        - name: "password"
-          in: "formData"
-          description: "ユーザのパスワード"
-          required: true
-          type: "string"
+      requestBody:
+        description: "指定したIDのユーザを検索・パスワードチェックし、ログイン情報を取得します。"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                mail:
+                  type: "string"
+                password:
+                  type: "string"
+              example:
+                mail: 1@exampole.com
+                password: xxxxxxxx
       responses:
-        200:
+        201:
           description: "Success"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  no:
-                    type: "int"
-                  name:
-                    type: "string"
-                  type:
-                    type: "string"
-                  comment:
-                    type: "int"
-                example:
-                  header:
-                    resultCode: 200
-                  data:
-                    id: 1
-                    role: "usr"
-                    password: "123456password"
-                    passReset: 1
-        404:
-          desctiption: "NotFound"
           content:
             application/json:
               schema:
@@ -1006,7 +982,23 @@ paths:
                       type: "object"
                 example:
                   header:
-                    resultCode: 404
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
                   data: null
   "/user/{memberId}:":
     delete:
