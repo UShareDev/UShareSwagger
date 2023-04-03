@@ -78,17 +78,35 @@ paths:
               properties:
                 id:
                   type: "int"
-                status:
-                  type: "int"
-                guaranteeStatus:
+                menuStatus:
                   type: "int"
                 contractStatus:
                   type: "int"
+                commissionStatus:
+                  type: "int"
+                guaranteeStatus:
+                  type: "int"
+                explanationStatus:
+                  type: "int"
+                signStatus:
+                  type: "int"
+                initialPaymentStatus:
+                  type: "int"
+                onbordingStatus:
+                  type: "int"
+                contractCompleted:
+                  type: "int"
               example:
                 id: 1
-                status: 2
-                guaranteeStatus: 1
-                contractStatus: 1
+                menuStatus: 1
+                contractStatus: 0
+                commissionStatus: 0
+                guaranteeStatus: 0
+                explanationStatus: 0
+                signStatus: 0
+                initialPaymentStatus: 0
+                onbordingStatus: 0
+                contractCompleted: 0
       responses:
         201:
           description: "Success"
