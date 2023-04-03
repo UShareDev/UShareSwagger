@@ -112,9 +112,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  success:
-                    type: "string"
-                    example: "REGISTERED"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
         400:
           description: "BadRequest"
           content:
@@ -122,12 +128,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: string
-                    example: BAD_REQUEST
-                  message:
-                    type: string
-                    example: "BAD_REQUEST"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
   "/contract/search/{keyword}:":
     get:
       tags:
