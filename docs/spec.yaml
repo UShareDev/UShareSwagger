@@ -218,44 +218,48 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  fullName:
-                    type: "string"
-                  gender:
-                    type: "int"
-                  country:
-                    type: "string"
-                  birthday:
-                    type: "string"
-                  postalCode:
-                    type: "string"
-                  address:
-                    type: "string"
-                  phoneNumber:
-                    type: "string"
-                  schoolOrWorkplace:
-                    type: "string"
-                  workplaceAddress:
-                    type: "string"
-                  workplaceNumber:
-                    type: "string"
-                  emergencyFullName:
-                    type: "string"
-                  emergencyFullNamePron:
-                    type: "string"
-                  emergencyAddress:
-                    type: "string"
-                  emergencyRelationship:
-                    type: "string"
-                  emergencyEmail:
-                    type: "string"
-                  emergencyPhoneNumber:
-                    type: "string"
-                  snsType:
-                    type: "int"
-                  snsId:
-                    type: "string"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      fullName:
+                        type: "string"
+                      gender:
+                        type: "int"
+                      country:
+                        type: "string"
+                      birthday:
+                        type: "string"
+                      postalCode:
+                        type: "string"
+                      address:
+                        type: "string"
+                      phoneNumber:
+                        type: "string"
+                      schoolOrWorkplace:
+                        type: "string"
+                      workplaceAddress:
+                        type: "string"
+                      workplaceNumber:
+                        type: "string"
+                      emergencyFullName:
+                        type: "string"
+                      emergencyFullNamePron:
+                        type: "string"
+                      emergencyAddress:
+                        type: "string"
+                      emergencyRelationship:
+                        type: "string"
+                      emergencyEmail:
+                        type: "string"
+                      emergencyPhoneNumber:
+                        type: "string"
+                      snsType:
+                        type: "int"
+                      snsId:
+                        type: "string"
                 example:
                   header:
                     resultCode: 200
@@ -316,14 +320,18 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  beginDateContract:
-                    type: "string"
-                  endDateContract:
-                    type: "string"
-                  arrivalTime:
-                    type: "string"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      beginDateContract:
+                        type: "string"
+                      endDateContract:
+                        type: "string"
+                      arrivalTime:
+                        type: "string"
                 example:
                   header:
                     resultCode: 200
@@ -369,16 +377,20 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  idCardFrontImg:
-                    type: "string"
-                  idCardBackImg:
-                    type: "string"
-                  healthInsCardFrontImg:
-                    type: "string"
-                  healthInsCardBackImg:
-                    type: "string"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      idCardFrontImg:
+                        type: "string"
+                      idCardBackImg:
+                        type: "string"
+                      healthInsCardFrontImg:
+                        type: "string"
+                      healthInsCardBackImg:
+                        type: "string"
                 example:
                   header:
                     resultCode: 200
@@ -425,18 +437,22 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  prefRoomType:
-                    type: "int"
-                  sensitiveLevelToMessiness:
-                    type: "int"
-                  sensitiveLevelToNoise:
-                    type: "int"
-                  sensitiveLevelToTemperature:
-                    type: "int"
-                  prefDietType:
-                    type: "int"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      prefRoomType:
+                        type: "int"
+                      sensitiveLevelToMessiness:
+                        type: "int"
+                      sensitiveLevelToNoise:
+                        type: "int"
+                      sensitiveLevelToTemperature:
+                        type: "int"
+                      prefDietType:
+                        type: "int"
                 example:
                   header:
                     resultCode: 200
@@ -483,10 +499,14 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  memberList:
-                    type: array
-                    items:
-                      type: memberId
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      memberList:
+                        type: array
+                        items:
+                          type: memberId
                 example:
                   header:
                     resultCode: 200
@@ -550,30 +570,34 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  fullName:
-                    type: "string"
-                  birthday:
-                    type: "string"
-                  university:
-                    type: "string"
-                  major:
-                    type: "string"
-                  location:
-                    type: "string"
-                  homeTown:
-                    type: "string"
-                  livingPeriodStart:
-                    type: "string"
-                  livingPeriodEnd:
-                    type: "string"
-                  link1:
-                    type: "string"
-                  link2:
-                    type: "string"
-                  link3:
-                    type: "string"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      fullName:
+                        type: "string"
+                      birthday:
+                        type: "string"
+                      university:
+                        type: "string"
+                      major:
+                        type: "string"
+                      location:
+                        type: "string"
+                      homeTown:
+                        type: "string"
+                      livingPeriodStart:
+                        type: "string"
+                      livingPeriodEnd:
+                        type: "string"
+                      link1:
+                        type: "string"
+                      link2:
+                        type: "string"
+                      link3:
+                        type: "string"
                 example:
                   header:
                     resultCode: 200
@@ -628,16 +652,20 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  hobby:
-                    type: array
-                    items:
-                      type: string
-                  placesYouLived:
-                    type: array
-                    items:
-                      type: string
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      hobby:
+                        type: array
+                        items:
+                          type: string
+                      placesYouLived:
+                        type: array
+                        items:
+                          type: string
                 example:
                   header:
                     resultCode: 200
@@ -689,20 +717,24 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  companyName:
-                    type: "string"
-                  employmentType:
-                    type: "string"
-                  position:
-                    type: "string"
-                  startDate:
-                    type: "string"
-                  endDate:
-                    type: "string"
-                  industry:
-                    type: "string"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      companyName:
+                        type: "string"
+                      employmentType:
+                        type: "string"
+                      position:
+                        type: "string"
+                      startDate:
+                        type: "string"
+                      endDate:
+                        type: "string"
+                      industry:
+                        type: "string"
                 example:
                   header:
                     resultCode: 200
@@ -752,18 +784,22 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  role:
-                    type: "string"
-                  skills:
-                    type: array
-                    items:
-                      type: string
-                  wannaConnectWith:
-                    type: array
-                    items:
-                      type: string
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      role:
+                        type: "string"
+                      skills:
+                        type: array
+                        items:
+                          type: string
+                      wannaConnectWith:
+                        type: array
+                        items:
+                          type: string
                 example:
                   header:
                     resultCode: 200
@@ -816,10 +852,14 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  selfIntro:
-                    type: "string"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      selfIntro:
+                        type: "string"
                 example:
                   header:
                     resultCode: 200
