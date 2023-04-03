@@ -1189,6 +1189,7 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+
   "/member/icon/{memberId}:":
     get:
       operationId: "sample_icon"
@@ -1239,7 +1240,7 @@ paths:
     get:
       operationId: "sample_movie"
       tags:
-        - "メンバー情報動画取得API"
+        - "メンバー情報動画API"
       summary: "メンバー情報動画取得API"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -1257,6 +1258,68 @@ paths:
               schema:
                 type: string
                 format: byte
+              example:
+                header:
+                  resultCode: 200
+                data:
+                  id: "1"
+                  movie: "movieBinary"
+
+  "/member/movie":
+    post:
+      tags:
+        - "メンバー情報動画API"
+      summary: "メンバー情報動画登録API"
+      requestBody:
+        description: "メンバー情報動画登録API"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                movie:
+                  type: "integer"
+                  format: "int64"
+              example:
+                id: "1"
+                movie: "movieBinary"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/login":
     post:
       tags:
