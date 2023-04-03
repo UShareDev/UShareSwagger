@@ -151,15 +151,21 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  placesYouLived:
+                  memberList:
                     type: array
                     items:
-                      type: member
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        fullName:
+                          type: string
                 example:
                   memberList:
                     - { id: 1, fullName: "X" }
                     - { id: 2, fullName: "Y" }
                     - { id: 3, fullName: "Z" }
+
         400:
           description: "BadRequest"
           content:
@@ -500,7 +506,7 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  placesYouLived:
+                  memberList:
                     type: array
                     items:
                       type: memberId
