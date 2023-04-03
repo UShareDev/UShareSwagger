@@ -24,32 +24,26 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  id:
-                    type: "int"
-                  status:
-                    type: "int"
-                  guaranteeStatus:
-                    type: "int"
-                  contractStatus:
-                    type: "int"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      id:
+                        type: "int"
+                      status:
+                        type: "int"
+                      guaranteeStatus:
+                        type: "int"
+                      contractStatus:
+                        type: "int"
                 example:
-                  id: 1
-                  status: 2
-                  guaranteeStatus: 1
-                  contractStatus: 1
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
+                  header:
+                    resultCode: 200
+                  data:
+                    id: 1
+                    status: 2
+                    guaranteeStatus: 1
+                    contractStatus: 1
         404:
           desctiption: "NotFound"
           content:
@@ -57,12 +51,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
   "/status":
     post:
       tags:
