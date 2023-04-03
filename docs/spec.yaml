@@ -171,20 +171,6 @@ paths:
                     - { id: 1, fullName: "X" }
                     - { id: 2, fullName: "Y" }
                     - { id: 3, fullName: "Z" }
-
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -192,12 +178,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
   "/contract/base/{memberId}:":
     get:
       tags:
@@ -277,19 +266,6 @@ paths:
                   emergencyPhoneNumber: "011-231-4111"
                   snsType: 0
                   snsId: "XYZ0123456"
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -297,12 +273,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
   "/contract/date/{memberId}:":
     get:
       tags:
@@ -337,19 +316,6 @@ paths:
                   beginDateContract: "2023/04/01"
                   endDateContract: "2025/03/31"
                   arrivalTime: "09:30"
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -357,12 +323,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
   "/contract/image/{memberId}:":
     get:
       tags:
@@ -400,19 +369,6 @@ paths:
                   idCardBackImg: "(BinaryStringData)"
                   healthInsCardFrontImg: "(BinaryStringData)"
                   healthInsCardBackImg: "(BinaryStringData)"
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -420,12 +376,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
   "/contract/questionnaire/{memberId}:":
     get:
       tags:
@@ -466,19 +425,6 @@ paths:
                   sensitiveLevelToNoise: 3
                   sensitiveLevelToTemperature: 5
                   prefDietType: 1
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -486,12 +432,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
   "/memberinfo/search/{word}:":
     get:
       tags:
@@ -540,20 +489,6 @@ paths:
                         birthday: "YYYY/MM/DD",
                         major: "X major",
                       }
-
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -561,12 +496,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
   "/memberinfo/base/{memberId}:":
     get:
       tags:
@@ -625,19 +563,6 @@ paths:
                   link1: "(InstagramURL)"
                   link2: "(FacebookURL)"
                   link3: "(LinkedInURL)"
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -645,12 +570,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
 
   "/memberinfo/hobby/{memberId}:":
     get:
@@ -693,19 +621,6 @@ paths:
                     - NewYork
                     - Pari
                     - Venetia
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -713,12 +628,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
 
   "/memberinfo/professional/{memberId}:":
     get:
@@ -763,19 +681,6 @@ paths:
                   startDate: "2022/01/01"
                   endDate: "2023/12/31"
                   industry: "IT"
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -783,12 +688,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
 
   "/memberinfo/skills/{memberId}:":
     get:
@@ -834,19 +742,6 @@ paths:
                     - interestedin1
                     - interestedin2
                     - interestedin3
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -854,12 +749,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
 
   "/memberinfo/selfintro/{memberId}:":
     get:
@@ -889,19 +787,6 @@ paths:
                 example:
                   id: "1"
                   selfIntro: "selfIntroXXX150char"
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -909,13 +794,15 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
-
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
   "/member/icon/{memberId}:":
     get:
       operationId: "sample_icon"
@@ -1023,19 +910,6 @@ paths:
                   role: "usr"
                   password: "123456password"
                   passReset: 1
-        400:
-          description: "BadRequest"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "BAD_REQUEST"
-                  message:
-                    type: "string"
-                    example: "BAD_REQUEST"
         404:
           desctiption: "NotFound"
           content:
@@ -1043,9 +917,12 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
