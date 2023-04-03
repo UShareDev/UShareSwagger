@@ -1481,6 +1481,67 @@ paths:
                     resultCode: 404
                   data: null
 
+  "/memberinfo/selfintro":
+    post:
+      tags:
+        - "メンバー情報取得API"
+      summary: "メンバー情報取得API(5/5)"
+      requestBody:
+        description: "メンバー情報取得API(5/5)"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                selfIntro:
+                  type: "string"
+              example:
+                id: "1"
+                role: "Manager"
+                skills:
+                  - technology
+                  - economics
+                  - finance
+                wannaConnectWith:
+                  - interestedin1
+                  - interestedin2
+                  - interestedin3
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  id: "1"
+                  selfIntro: "selfIntroXXX150char"
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/member/icon/{memberId}:":
     get:
       operationId: "sample_icon"
