@@ -131,7 +131,7 @@ paths:
                   message:
                     type: string
                     example: "BAD_REQUEST"
-  "/search/contract/{keyword}:":
+  "/contract/search/{keyword}:":
     get:
       tags:
         - "メンバー契約情報検索API"
