@@ -789,7 +789,7 @@ paths:
   "/memberinfo/search/{word}:":
     get:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報検索API"
       summary: "メンバー情報取得API"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -856,6 +856,7 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+
   "/memberinfo/base/{memberId}:":
     get:
       tags:
@@ -936,6 +937,90 @@ paths:
                 example:
                   header:
                     resultCode: 404
+                  data: null
+
+  "/memberinfo/base":
+    post:
+      tags:
+        - "メンバー情報取得API"
+      summary: "メンバー情報取得API(1/5)"
+      requestBody:
+        description: "メンバー情報取得API(1/5)"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                id:
+                  type: "int"
+                fullName:
+                  type: "string"
+                birthday:
+                  type: "string"
+                university:
+                  type: "string"
+                major:
+                  type: "string"
+                location:
+                  type: "string"
+                homeTown:
+                  type: "string"
+                livingPeriodStart:
+                  type: "string"
+                livingPeriodEnd:
+                  type: "string"
+                link1:
+                  type: "string"
+                link2:
+                  type: "string"
+                link3:
+                  type: "string"
+              example:
+                id: "1"
+                fullName: "Yamada Taro"
+                birthday: "04/01"
+                university: "Waseda University"
+                major: "Architecture"
+                location: "U Share Nishiwaseda"
+                homeTown: "Osaka"
+                livingPeriodStart: "2023/01/01"
+                livingPeriodEnd: "2024/12/31"
+                link1: "(InstagramURL)"
+                link2: "(FacebookURL)"
+                link3: "(LinkedInURL)"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
                   data: null
 
   "/memberinfo/hobby/{memberId}:":
