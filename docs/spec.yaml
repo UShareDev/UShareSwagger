@@ -381,13 +381,17 @@ paths:
                       id:
                         type: "int"
                       idCardFrontImg:
-                        type: "string"
+                        type: string
+                        format: byte
                       idCardBackImg:
-                        type: "string"
+                        type: string
+                        format: byte
                       healthInsCardFrontImg:
-                        type: "string"
+                        type: string
+                        format: byte
                       healthInsCardBackImg:
-                        type: "string"
+                        type: string
+                        format: byte
                 example:
                   header:
                     resultCode: 200
@@ -895,12 +899,12 @@ paths:
           format: "int64"
       responses:
         200:
-          description: アイコン画像ファイルでダウンロードするエンドポイント
+          description: アイコン画像ファイルをBASE64でダウンロードするエンドポイント
           content:
-            image/*:
+            application/json:
               schema:
                 type: string
-                format: binary
+                format: byte
 
   "/member/cv/{memberId}:":
     get:
@@ -918,12 +922,12 @@ paths:
           format: "int64"
       responses:
         200:
-          description: pdfファイルでダウンロードするエンドポイント
+          description: pdfファイルをBASE64でダウンロードするエンドポイント
           content:
-            application/pdf:
+            application/json:
               schema:
                 type: string
-                format: binary
+                format: byte
 
   "/member/movie/{memberId}:":
     get:
@@ -941,12 +945,12 @@ paths:
           format: "int64"
       responses:
         200:
-          description: mp4ファイルでダウンロードするエンドポイント
+          description: mp4ファイルをBASE64でダウンロードするエンドポイント
           content:
-            video/mp4:
+            application/json:
               schema:
                 type: string
-                format: binary
+                format: byte
   "/login":
     post:
       tags:
