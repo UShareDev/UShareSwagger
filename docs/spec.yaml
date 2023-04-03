@@ -1981,6 +1981,52 @@ paths:
                 type: string
                 format: byte
 
+    delete:
+      tags:
+        - "メンバー情報アイコンAPI"
+      summary: "メンバー情報アイコンAPI"
+      description: "指定したIDのメンバー情報アイコン情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
   "/member/icon":
     post:
       tags:
@@ -2058,6 +2104,52 @@ paths:
               schema:
                 type: string
                 format: byte
+
+    delete:
+      tags:
+        - "メンバー情報PDFAPI"
+      summary: "メンバー情報PDFAPI"
+      description: "指定したIDのメンバー情報PDF情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
 
   "/member/cv":
     post:
@@ -2142,6 +2234,52 @@ paths:
                 data:
                   id: "1"
                   movie: "movieBinary"
+
+    delete:
+      tags:
+        - "メンバー情報動画API"
+      summary: "メンバー情報動画API"
+      description: "指定したIDのメンバー情報動画情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "int"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
 
   "/member/movie":
     post:
