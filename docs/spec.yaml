@@ -6,7 +6,7 @@ paths:
   "/status/{memberId}:":
     get:
       tags:
-        - "メンバーステータス情報取得API"
+        - "メンバーステータス情報API"
       summary: "メンバーステータス情報取得API"
       description: "指定したIDのユーザのステータス情報を取得します。"
       parameters:
@@ -30,22 +30,49 @@ paths:
                     data:
                       userId:
                         type: "int"
-                      status:
+                      menuStatus:
+                        type: "int"
+                      contractStatus:
+                        type: "int"
+                      commissionStatus:
                         type: "int"
                       guaranteeStatus:
                         type: "int"
-                      contractStatus:
+                      explanationStatus:
+                        type: "int"
+                      signStatus:
+                        type: "int"
+                      initialPaymentStatus:
+                        type: "int"
+                      onbordingStatus:
+                        type: "int"
+                      contractCompleted:
+                        type: "int"
+                      evacuationRoute:
+                        type: "int"
+                      roomStatus:
+                        type: "int"
+                      houseRule:
                         type: "int"
                 example:
                   header:
                     resultCode: 200
                   data:
                     userId: 1
-                    status: 2
-                    guaranteeStatus: 1
+                    menuStatus: 2
                     contractStatus: 1
+                    commissionStatus: 1
+                    guaranteeStatus: 1
+                    explanationStatus: 1
+                    signStatus: 1
+                    initialPaymentStatus: 1
+                    onbordingStatus: 1
+                    contractCompleted: 1
+                    evacuationRoute: 1
+                    roomStatus: 1
+                    houseRule: 1
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -63,7 +90,7 @@ paths:
   "/status":
     post:
       tags:
-        - "メンバーステータス情報取得API"
+        - "メンバーステータス情報API"
       summary: "メンバーステータス情報登録API"
       requestBody:
         description: "登録したいメンバーのステータス情報"
@@ -116,16 +143,84 @@ paths:
                   header:
                     resultCode: 400
                   data: null
+  "/statusCount?statusClassId={statusClassId}&status={status}":
+    get:
+      tags:
+        - "メンバーステータス情報API"
+      summary: "メンバーステータス件数取得API"
+      description: "指定したステータス種別とステータスの件数を取得します。"
+      parameters:
+        - name: "statusClassId"
+          in: "query"
+          description: "取得したいステータス種別 複数指定する時は'-’で結合する"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "status"
+          in: "query"
+          description: "取得したいステータス"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      statusCount:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            statusClassId:
+                              type: "integer"
+                            count:
+                              type: "integer"
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    statusCount:
+                    - {statusClassId: 1, count: 10 }
+                    - {statusClassId: 2, count: 2 }
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
 
-  "/contract/search/{keyword}:":
+  "/contract/search?statusClassId={statusClassId}&keyword={keyword}":
     get:
       tags:
         - "メンバー契約情報検索API"
-      summary: "メンバーステータス情報検索API"
-      description: "指定したIDのユーザのステータス情報を取得します。"
+      summary: "メンバー契約情報検索API"
+      description: "指定したステータス種別と一致し、指定したキーワードが氏名に含まれるメンバー契約情報を検索する。"
       parameters:
+        - name: "statusClassId"
+          in: "query"
+          description: "取得したいステータス種別"
+          required: true
+          type: "integer"
         - name: "keyword"
-          in: "path"
+          in: "query"
           description: "取得したいメンバーの検索ワード"
           required: true
           type: "string"
@@ -139,9 +234,18 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
-                      memberList:
+                      incomplete:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            userId:
+                              type: integer
+                            fullName:
+                              type: string
+                      complete:
                         type: array
                         items:
                           type: object
@@ -154,10 +258,14 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    memberList:
+                    incomplete:
                       - { userId: 1, fullName: "X" }
                       - { userId: 2, fullName: "Y" }
                       - { userId: 3, fullName: "Z" }
+                    complete:
+                      - { userId: 4, fullName: "A" }
+                      - { userId: 5, fullName: "B" }
+                      - { userId: 6, fullName: "C" }
         404:
           desctiption: "NotFound"
           content:
@@ -167,7 +275,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -180,7 +288,7 @@ paths:
       tags:
         - "メンバー契約情報API"
       summary: "メンバー契約情報取得API(1/4)"
-      description: "指定したIDのユーザのメンバー情報を取得します。"
+      description: "指定したIDのユーザのメンバー契約情報を取得します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -198,14 +306,14 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       userId:
-                        type: "int"
+                        type: "integer"
                       fullName:
                         type: "string"
                       gender:
-                        type: "int"
+                        type: "integer"
                       country:
                         type: "string"
                       birthday:
@@ -235,7 +343,7 @@ paths:
                       emergencyPhoneNumber:
                         type: "string"
                       snsType:
-                        type: "int"
+                        type: "integer"
                       snsId:
                         type: "string"
                 example:
@@ -262,7 +370,7 @@ paths:
                     snsType: 0
                     snsId: "XYZ0123456"
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -270,7 +378,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -281,12 +389,12 @@ paths:
     delete:
       tags:
         - "メンバー契約情報API"
-      summary: "メンバー契約情報API"
+      summary: "メンバー契約情報削除API(1/4)"
       description: "指定したIDのメンバー契約情報を削除します。"
       parameters:
         - name: "memberId"
           in: "path"
-          description: "取得したいメンバーのID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -300,7 +408,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -308,7 +416,7 @@ paths:
                     resultCode: 200
                   data: null
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -316,7 +424,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -338,11 +446,11 @@ paths:
               type: "object"
               properties:
                 userId:
-                  type: "int"
+                  type: "integer"
                 fullName:
                   type: "string"
                 gender:
-                  type: "int"
+                  type: "integer"
                 country:
                   type: "string"
                 birthday:
@@ -372,7 +480,7 @@ paths:
                 emergencyPhoneNumber:
                   type: "string"
                 snsType:
-                  type: "int"
+                  type: "integer"
                 snsId:
                   type: "string"
               example:
@@ -405,7 +513,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -421,7 +529,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -452,10 +560,10 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       userId:
-                        type: "int"
+                        type: "integer"
                       beginDateContract:
                         type: "string"
                       endDateContract:
@@ -468,12 +576,12 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    userId: "1"
+                    userId: 1
                     beginDateContract: "2023/04/01"
                     endDateContract: "2025/03/31"
                     arrivalTime: "09:30"
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -481,7 +589,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -492,12 +600,12 @@ paths:
     delete:
       tags:
         - "メンバー契約情報API"
-      summary: "メンバー契約情報API"
+      summary: "メンバー契約情報削除API(2/4)"
       description: "指定したIDのメンバー契約情報を削除します。"
       parameters:
         - name: "memberId"
           in: "path"
-          description: "取得したいメンバーのID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -511,7 +619,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -519,7 +627,7 @@ paths:
                     resultCode: 200
                   data: null
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -527,7 +635,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -539,7 +647,7 @@ paths:
     post:
       tags:
         - "メンバー契約情報API"
-      summary: "メンバー契約情報取得API(2/4)"
+      summary: "メンバー契約情報登録API(2/4)"
       requestBody:
         description: "登録したいメンバーの契約情報(2/4)"
         required: true
@@ -549,7 +657,7 @@ paths:
               type: "object"
               properties:
                 userId:
-                  type: "int"
+                  type: "integer"
                 beginDateContract:
                   type: "string"
                 endDateContract:
@@ -559,7 +667,7 @@ paths:
                 arrivalTime:
                   type: "string"
               example:
-                userId: "1"
+                userId: 1
                 beginDateContract: "2023/04/01"
                 endDateContract: "2025/03/31"
                 arrivalTime: "09:30"
@@ -573,7 +681,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -589,7 +697,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -620,10 +728,10 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       userId:
-                        type: "int"
+                        type: "integer"
                       idCardFrontImg:
                         type: string
                         format: byte
@@ -640,13 +748,13 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    userId: "1"
-                    idCardFrontImg: "(BinaryStringData)"
-                    idCardBackImg: "(BinaryStringData)"
-                    healthInsCardFrontImg: "(BinaryStringData)"
-                    healthInsCardBackImg: "(BinaryStringData)"
+                    userId: 1
+                    idCardFrontImg: "(Base64StringData)"
+                    idCardBackImg: "(Base64StringData)"
+                    healthInsCardFrontImg: "(Base64StringData)"
+                    healthInsCardBackImg: "(Base64StringData)"
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -654,7 +762,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -665,12 +773,12 @@ paths:
     delete:
       tags:
         - "メンバー契約情報API"
-      summary: "メンバー契約情報API"
+      summary: "メンバー契約情報削除API(3/4)"
       description: "指定したIDのメンバー契約情報を削除します。"
       parameters:
         - name: "memberId"
           in: "path"
-          description: "取得したいメンバーのID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -684,7 +792,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -692,7 +800,7 @@ paths:
                     resultCode: 200
                   data: null
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -700,7 +808,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -712,7 +820,7 @@ paths:
     post:
       tags:
         - "メンバー契約情報API"
-      summary: "メンバー契約情報取得API(3/4)"
+      summary: "メンバー契約情報登録API(3/4)"
       requestBody:
         description: "登録したいメンバーの契約情報(3/4)"
         required: true
@@ -722,7 +830,7 @@ paths:
               type: "object"
               properties:
                 userId:
-                  type: "int"
+                  type: "integer"
                 idCardFrontImg:
                   type: string
                   format: byte
@@ -736,11 +844,11 @@ paths:
                   type: string
                   format: byte
               example:
-                userId: "1"
-                idCardFrontImg: "(BinaryStringData)"
-                idCardBackImg: "(BinaryStringData)"
-                healthInsCardFrontImg: "(BinaryStringData)"
-                healthInsCardBackImg: "(BinaryStringData)"
+                userId: 1
+                idCardFrontImg: "(Base64StringData)"
+                idCardBackImg: "(Base64StringData)"
+                healthInsCardFrontImg: "(Base64StringData)"
+                healthInsCardBackImg: "(Base64StringData)"
       responses:
         201:
           description: "Success"
@@ -751,7 +859,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -767,7 +875,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -798,20 +906,20 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       userId:
-                        type: "int"
+                        type: "integer"
                       prefRoomType:
-                        type: "int"
+                        type: "integer"
                       sensitiveLevelToMessiness:
-                        type: "int"
+                        type: "integer"
                       sensitiveLevelToNoise:
-                        type: "int"
+                        type: "integer"
                       sensitiveLevelToTemperature:
-                        type: "int"
+                        type: "integer"
                       prefDietType:
-                        type: "int"
+                        type: "integer"
                 example:
                   header:
                     resultCode: 200
@@ -823,7 +931,7 @@ paths:
                     sensitiveLevelToTemperature: 5
                     prefDietType: 1
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -831,7 +939,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -842,12 +950,12 @@ paths:
     delete:
       tags:
         - "メンバー契約情報API"
-      summary: "メンバー契約情報API"
+      summary: "メンバー契約情報削除API(4/4)"
       description: "指定したIDのメンバー契約情報を削除します。"
       parameters:
         - name: "memberId"
           in: "path"
-          description: "取得したいメンバーのID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -861,7 +969,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -869,7 +977,7 @@ paths:
                     resultCode: 200
                   data: null
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -877,7 +985,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -889,7 +997,7 @@ paths:
     post:
       tags:
         - "メンバー契約情報API"
-      summary: "メンバー契約情報取得API(4/4)"
+      summary: "メンバー契約情報登録API(4/4)"
       requestBody:
         description: "登録したいメンバーの契約情報(4/4)"
         required: true
@@ -899,17 +1007,17 @@ paths:
               type: "object"
               properties:
                 userId:
-                  type: "int"
+                  type: "integer"
                 prefRoomType:
-                  type: "int"
+                  type: "integer"
                 sensitiveLevelToMessiness:
-                  type: "int"
+                  type: "integer"
                 sensitiveLevelToNoise:
-                  type: "int"
+                  type: "integer"
                 sensitiveLevelToTemperature:
-                  type: "int"
+                  type: "integer"
                 prefDietType:
-                  type: "int"
+                  type: "integer"
               example:
                 userId: 1
                 prefRoomType: 2
@@ -927,7 +1035,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -943,7 +1051,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -951,15 +1059,15 @@ paths:
                     resultCode: 400
                   data: null
 
-  "/memberinfo/search/{word}:":
+  "/memberinfo/search?keyword={keyword}":
     get:
       tags:
         - "メンバー情報検索API"
-      summary: "メンバー情報取得API"
+      summary: "メンバー情報検索API"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
-        - name: "word"
-          in: "path"
+        - name: "keyword"
+          in: "query"
           description: "取得したいメンバーの検索ワード"
           required: true
           type: "string"
@@ -973,12 +1081,23 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       memberList:
                         type: array
                         items:
-                          type: memberId
+                          type: "object"
+                          properties:
+                            userId:
+                              type: "integer"
+                            fullName:
+                              type: "string"
+                            university:
+                              type: "string"
+                            birthday:
+                              type: "string"
+                            major:
+                              type: "string"
                 example:
                   header:
                     resultCode: 200
@@ -1006,7 +1125,7 @@ paths:
                           major: "X major",
                         }
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -1014,7 +1133,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1025,7 +1144,7 @@ paths:
   "/memberinfo/base/{memberId}:":
     get:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報API"
       summary: "メンバー情報取得API(1/5)"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -1045,10 +1164,10 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       userId:
-                        type: "int"
+                        type: "integer"
                       fullName:
                         type: "string"
                       birthday:
@@ -1075,9 +1194,9 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    userId: "1"
+                    userId: 1
                     fullName: "Yamada Taro"
-                    birthday: "04/01"
+                    birthday: "2001/04/01"
                     university: "Waseda University"
                     major: "Architecture"
                     location: "U Share Nishiwaseda"
@@ -1088,7 +1207,7 @@ paths:
                     link2: "(FacebookURL)"
                     link3: "(LinkedInURL)"
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -1096,7 +1215,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1106,13 +1225,13 @@ paths:
 
     delete:
       tags:
-        - "メンバー情報取得API"
-      summary: "メンバー情報削除API"
+        - "メンバー情報API"
+      summary: "メンバー情報削除API(1/5)"
       description: "指定したIDのメンバー情報を削除します。"
       parameters:
         - name: "memberId"
           in: "path"
-          description: "取得したいメンバーのID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -1126,7 +1245,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1142,7 +1261,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1153,10 +1272,10 @@ paths:
   "/memberinfo/base":
     post:
       tags:
-        - "メンバー情報取得API"
-      summary: "メンバー情報取得API(1/5)"
+        - "メンバー情報API"
+      summary: "メンバー情報登録API(1/5)"
       requestBody:
-        description: "メンバー情報取得API(1/5)"
+        description: "登録したいメンバーの情報(1/5)"
         required: true
         content:
           application/json:
@@ -1164,7 +1283,7 @@ paths:
               type: "object"
               properties:
                 userId:
-                  type: "int"
+                  type: "integer"
                 fullName:
                   type: "string"
                 birthday:
@@ -1188,9 +1307,9 @@ paths:
                 link3:
                   type: "string"
               example:
-                userId: "1"
+                userId: 1
                 fullName: "Yamada Taro"
-                birthday: "04/01"
+                birthday: "2001/04/01"
                 university: "Waseda University"
                 major: "Architecture"
                 location: "U Share Nishiwaseda"
@@ -1210,7 +1329,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1226,7 +1345,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1237,7 +1356,7 @@ paths:
   "/memberinfo/hobby/{memberId}:":
     get:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報API"
       summary: "メンバー情報取得API(2/5)"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -1257,10 +1376,10 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       userId:
-                        type: "int"
+                        type: "integer"
                       hobby:
                         type: array
                         items:
@@ -1273,7 +1392,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    userId: "1"
+                    userId: 1
                     hobby:
                       - tennis
                       - fishing
@@ -1283,7 +1402,7 @@ paths:
                       - Pari
                       - Venetia
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -1291,7 +1410,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1301,13 +1420,13 @@ paths:
 
     delete:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報API"
       summary: "メンバー情報削除API"
       description: "指定したIDのメンバー情報を削除します。"
       parameters:
         - name: "memberId"
           in: "path"
-          description: "取得したいメンバーのID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -1321,7 +1440,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1329,7 +1448,7 @@ paths:
                     resultCode: 200
                   data: null
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -1337,7 +1456,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1348,10 +1467,10 @@ paths:
   "/memberinfo/hobby":
     post:
       tags:
-        - "メンバー情報取得API"
-      summary: "メンバー情報取得API(2/5)"
+        - "メンバー情報API"
+      summary: "メンバー情報登録API(2/5)"
       requestBody:
-        description: "メンバー情報取得API(2/5)"
+        description: "登録したいメンバーの情報(2/5)"
         required: true
         content:
           application/json:
@@ -1359,7 +1478,7 @@ paths:
               type: "object"
               properties:
                 userId:
-                  type: "int"
+                  type: "integer"
                 hobby:
                   type: array
                   items:
@@ -1369,7 +1488,7 @@ paths:
                   items:
                     type: string
               example:
-                userId: "1"
+                userId: 1
                 hobby:
                   - tennis
                   - fishing
@@ -1388,7 +1507,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1404,7 +1523,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1415,7 +1534,7 @@ paths:
   "/memberinfo/professional/{memberId}:":
     get:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報API"
       summary: "メンバー情報取得API(3/5)"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -1435,10 +1554,10 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       userId:
-                        type: "int"
+                        type: "integer"
                       companyName:
                         type: "string"
                       employmentType:
@@ -1455,7 +1574,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    userId: "1"
+                    userId: 1
                     companyName: "株式会社XXX"
                     employmentType: "Permanent Employee"
                     position: "CEO"
@@ -1463,7 +1582,7 @@ paths:
                     endDate: "2023/12/31"
                     industry: "IT"
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -1471,7 +1590,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1481,13 +1600,13 @@ paths:
 
     delete:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報API"
       summary: "メンバー情報削除API"
       description: "指定したIDのメンバー情報を削除します。"
       parameters:
         - name: "memberId"
           in: "path"
-          description: "取得したいメンバーのID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -1501,7 +1620,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1517,7 +1636,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1528,10 +1647,10 @@ paths:
   "/memberinfo/professional":
     post:
       tags:
-        - "メンバー情報取得API"
-      summary: "メンバー情報取得API(3/5)"
+        - "メンバー情報API"
+      summary: "メンバー情報登録API(3/5)"
       requestBody:
-        description: "メンバー情報取得API(3/5)"
+        description: "登録したいメンバーの情報(3/5)"
         required: true
         content:
           application/json:
@@ -1539,7 +1658,7 @@ paths:
               type: "object"
               properties:
                 userId:
-                  type: "int"
+                  type: "integer"
                 companyName:
                   type: "string"
                 employmentType:
@@ -1553,7 +1672,7 @@ paths:
                 industry:
                   type: "string"
               example:
-                userId: "1"
+                userId: 1
                 companyName: "株式会社XXX"
                 employmentType: "Permanent Employee"
                 position: "CEO"
@@ -1570,7 +1689,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1586,7 +1705,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1597,7 +1716,7 @@ paths:
   "/memberinfo/skills/{memberId}:":
     get:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報API"
       summary: "メンバー情報取得API(4/5)"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -1617,11 +1736,11 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       userId:
-                        type: "int"
-                      role:
+                        type: "integer"
+                      roleDesc:
                         type: "string"
                       skills:
                         type: array
@@ -1635,8 +1754,8 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    userId: "1"
-                    role: "Manager"
+                    userId: 1
+                    roleDesc: "Manager"
                     skills:
                       - technology
                       - economics
@@ -1646,7 +1765,7 @@ paths:
                       - interestedin2
                       - interestedin3
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -1654,7 +1773,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1664,13 +1783,13 @@ paths:
 
     delete:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報API"
       summary: "メンバー情報削除API"
       description: "指定したIDのメンバー情報を削除します。"
       parameters:
         - name: "memberId"
           in: "path"
-          description: "取得したいメンバーのID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -1684,7 +1803,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1700,7 +1819,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1711,10 +1830,10 @@ paths:
   "/memberinfo/skills":
     post:
       tags:
-        - "メンバー情報取得API"
-      summary: "メンバー情報取得API(4/5)"
+        - "メンバー情報API"
+      summary: "メンバー情報登録API(4/5)"
       requestBody:
-        description: "メンバー情報取得API(4/5)"
+        description: "登録したいメンバーの情報(4/5)"
         required: true
         content:
           application/json:
@@ -1722,20 +1841,20 @@ paths:
               type: "object"
               properties:
                 userId:
-                  type: "int"
-                role:
+                  type: "integer"
+                roleDesc:
                   type: "string"
                 skills:
-                  type: array
+                  type: "array"
                   items:
-                    type: string
+                    type: "string"
                 wannaConnectWith:
-                  type: array
+                  type: "array"
                   items:
-                    type: string
+                    type: "string"
               example:
-                userId: "1"
-                role: "Manager"
+                userId: 1
+                roleDesc: "Manager"
                 skills:
                   - technology
                   - economics
@@ -1754,7 +1873,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1770,7 +1889,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1781,7 +1900,7 @@ paths:
   "/memberinfo/selfintro/{memberId}:":
     get:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報API"
       summary: "メンバー情報取得API(5/5)"
       description: "指定したIDのユーザのメンバー情報を取得します。"
       parameters:
@@ -1801,20 +1920,20 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       userId:
-                        type: "int"
+                        type: "integer"
                       selfIntro:
                         type: "string"
                 example:
                   header:
                     resultCode: 200
                   data:
-                    userId: "1"
+                    userId: 1
                     selfIntro: "selfIntroXXX150char"
         404:
-          desctiption: "NotFound"
+          description: "NotFound"
           content:
             application/json:
               schema:
@@ -1822,7 +1941,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1832,13 +1951,13 @@ paths:
 
     delete:
       tags:
-        - "メンバー情報取得API"
+        - "メンバー情報API"
       summary: "メンバー情報削除API"
       description: "指定したIDのメンバー情報を削除します。"
       parameters:
         - name: "memberId"
           in: "path"
-          description: "取得したいメンバーのID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -1852,7 +1971,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1868,7 +1987,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -1879,10 +1998,10 @@ paths:
   "/memberinfo/selfintro":
     post:
       tags:
-        - "メンバー情報取得API"
-      summary: "メンバー情報取得API(5/5)"
+        - "メンバー情報API"
+      summary: "メンバー情報登録API(5/5)"
       requestBody:
-        description: "メンバー情報取得API(5/5)"
+        description: "登録したいメンバーの情報(5/5)"
         required: true
         content:
           application/json:
@@ -1890,11 +2009,11 @@ paths:
               type: "object"
               properties:
                 userId:
-                  type: "int"
+                  type: "integer"
                 selfIntro:
                   type: "string"
               example:
-                userId: "1"
+                userId: 1
                 role: "Manager"
                 skills:
                   - technology
@@ -1914,12 +2033,13 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
-                  userId: "1"
-                  selfIntro: "selfIntroXXX150char"
+                  header:
+                    resultCode: 201
+                  data: null
         400:
           description: "BadRequest"
           content:
@@ -1929,7 +2049,7 @@ paths:
                 properties:
                   header:
                     resultCode:
-                      type: "int"
+                      type: "integer"
                     data:
                       type: "object"
                 example:
@@ -2414,3 +2534,704 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+  "/evacuation/{userId}:":
+    get:
+      tags:
+        - "オンボーディングAPI"
+      summary: "避難経路取得API"
+      description: "指定したIDのユーザの避難経路を取得します。"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      image:
+                        type: "string"
+                        format: "byte"
+                      explanations:
+                        type: "array"
+                        items:
+                          type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    userId: (Base64StringData)
+                    explanations: 
+                      - 停電時にエレベーターが止まってしまう場合があります。階段ないしは、バルコニーの梯子をご利用ください。
+                      - 指定避難場所は、富山公園と早稲田大学のキャンパスです。
+                      - 詳細情報は、新宿区のホームページをご確認ください。
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/roomRestoration/{userId}:":
+    get:
+      tags:
+        - "オンボーディングAPI"
+      summary: "お部屋現状取得API"
+      description: "指定したIDのユーザのお部屋現状を取得します。"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      wall:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                      ceiling:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                      floor:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                      balcony:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                      doorLock:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                      shelf:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                      deskAndChair:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                      proof:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                      bedding:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                      mailbox:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            imageId:
+                              type: "integer"
+                            image:
+                              type: "string"
+                              format: "byte"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    wall:
+                      - { imageId: 1, image: (Base64StringData) }
+                    ceiling: 
+                      - { imageId: 2, image: (Base64StringData) }
+                      - { imageId: 3, image: (Base64StringData) }
+                    floor: null
+                    balcony: null
+                    doorLock: null
+                    shelf: null
+                    deskAndChair:
+                      - { imageId: 4, image: (Base64StringData) }
+                    proof: null
+                    bedding: null
+                    mailbox: null
+
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+  "/roomRestoration/{imageId}:":
+    delete:
+      tags:
+        - "オンボーディングAPI"
+      summary: "お部屋現状削除API"
+      description: "指定したIDのお部屋現状を削除します。"
+      parameters:
+        - name: "imageId"
+          in: "path"
+          description: "削除したいお部屋現状のID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/roomRestoration":
+    post:
+      tags:
+        - "オンボーディングAPI"
+      summary: "お部屋現状登録API"
+      requestBody:
+        description: "登録したいお部屋現状 imageIdにnullを指定すると新規追加"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                userId:
+                  type: "integer"
+                roomPlaceId:
+                  type: "integer"
+                imageId:
+                  type: "integer"
+                restorationImage:
+                  type: "string"
+                  format: "byte"
+              example:
+                userId: 1
+                roomPlaceId: 1
+                imageId: 1
+                restorationImage: (Base64StringData)
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
+  "/news":
+    get:
+      tags:
+        - "お知らせ情報API"
+      summary: "お知らせ情報一覧取得API"
+      description: "お知らせ情報一覧を取得します。"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      newsList:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            newsId:
+                              type: "integer"
+                            subject:
+                              type: "string"
+                            creationDateTime:
+                              type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    newsList: 
+                    - {newsId: 5, subject: "お知らせ５", creationDateTime: "2023/04/05"}
+                    - {newsId: 3, subject: "お知らせ３", creationDateTime: "2023/04/03"}
+                    - {newsId: 2, subject: "お知らせ２", creationDateTime: "2023/04/02"}
+                    - {newsId: 1, subject: "お知らせ１", creationDateTime: "2023/04/01"}
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+  "/news/{newsId}:":
+    get:
+      tags:
+        - "お知らせ情報API"
+      summary: "お知らせ情報取得API"
+      description: "指定したIDのお知らせ情報を取得します。"
+      parameters:
+        - name: "newsId"
+          in: "path"
+          description: "取得したいお知らせ情報のID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      newsId:
+                        type: "integer"
+                      subject:
+                        type: "string"
+                      body:
+                        type: "string"
+                      creationDateTime:
+                        type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                      newsId: 1
+                      subject: "お知らせ５"
+                      body: "お知らせの詳細"
+                      creationDateTime: "2023/04/05"
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+    delete:
+      tags:
+        - "お知らせ情報API"
+      summary: "お知らせ情報削除API"
+      description: "指定したIDのお知らせ情報を削除します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "削除したいお知らせ情報のID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/faq/answer":
+    get:
+      tags:
+        - "FAQ情報API"
+      summary: "FAQ情報回答済み一覧取得API"
+      description: "FAQ情報回答済み一覧を取得します。"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      faqList:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            faqId:
+                              type: "integer"
+                            question:
+                              type: "string"
+                            answerDateTime:
+                              type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    faqList: 
+                    - {faqId: 5, question: "質問５", answerDateTime: "2023/04/05"}
+                    - {faqId: 3, question: "質問３", answerDateTime: "2023/04/03"}
+                    - {faqId: 2, question: "質問２", answerDateTime: "2023/04/02"}
+                    - {faqId: 1, question: "質問１", answerDateTime: "2023/04/01"}
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/faq/question":
+    get:
+      tags:
+        - "FAQ情報API"
+      summary: "FAQ情報未回答一覧取得API"
+      description: "FAQ情報未回答一覧を取得します。"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      faqList:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            faqId:
+                              type: "integer"
+                            question:
+                              type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    faqList: 
+                    - {faqId: 5, question: "質問５"}
+                    - {faqId: 3, question: "質問３"}
+                    - {faqId: 2, question: "質問２"}
+                    - {faqId: 1, question: "質問１"}
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/faq/detail/{faqId}:":
+    get:
+      tags:
+        - "FAQ情報API"
+      summary: "FAQ情報取得API"
+      description: "指定したIDのFAQ情報を取得します。"
+      parameters:
+        - name: "faqId"
+          in: "path"
+          description: "取得したいFAQ情報のID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      faqId:
+                        type: "integer"
+                      question:
+                        type: "string"
+                      answer:
+                        type: "string"
+                      answerDateTime:
+                        type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                      faqId: 1
+                      question: "質問５"
+                      answer: "回答"
+                      answerDateTime: "2023/04/05"
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+    delete:
+      tags:
+        - "FAQ情報API"
+      summary: "FAQ情報削除API"
+      description: "指定したIDのFAQ情報を削除します。"
+      parameters:
+        - name: "faqId"
+          in: "path"
+          description: "削除したいFAQ情報のID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          desctiption: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
