@@ -3455,13 +3455,11 @@ paths:
                       contentsData:
                         type: "string"
                         format: "byte"
-                      registrationDateTime:
-                        type: "string"
               example:
                 userId: 1
                 guaranteeData: 
-                  - {contentsType: "jpg", contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
-                  - {contentsType: "pdf", contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
+                  - {contentsType: "jpg", contentsData: (Base64StringData)}
+                  - {contentsType: "pdf", contentsData: (Base64StringData)}
       responses:
         201:
           description: "Success"
