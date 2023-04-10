@@ -2699,119 +2699,69 @@ paths:
                       wall:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                       ceiling:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                       floor:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                       balcony:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                       doorLock:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                       shelf:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                       deskAndChair:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                       proof:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                       bedding:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                       mailbox:
                         type: "array"
                         items:
-                          type: "object"
-                          properties:
-                            imageId:
-                              type: "integer"
-                            image:
-                              type: "string"
-                              format: "byte"
+                            type: "string"
+                            format: "byte"
                         
                 example:
                   header:
                     resultCode: 200
                   data:
                     wall:
-                      - { imageId: 1, image: (Base64StringData) }
+                      - (Base64StringData)
                     ceiling: 
-                      - { imageId: 2, image: (Base64StringData) }
-                      - { imageId: 3, image: (Base64StringData) }
+                      - (Base64StringData)
+                      - (Base64StringData)
                     floor: null
                     balcony: null
                     doorLock: null
                     shelf: null
                     deskAndChair:
-                      - { imageId: 4, image: (Base64StringData) }
+                      - (Base64StringData)
                     proof: null
                     bedding: null
                     mailbox: null
@@ -2832,16 +2782,16 @@ paths:
                   header:
                     resultCode: 404
                   data: null
-  "/roomRestoration/{imageId}:":
+
     delete:
       tags:
         - "オンボーディングAPI"
       summary: "お部屋現状削除API"
       description: "指定したIDのお部屋現状を削除します。"
       parameters:
-        - name: "imageId"
+        - name: "userId"
           in: "path"
-          description: "削除したいお部屋現状のID"
+          description: "削除したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
@@ -2885,7 +2835,7 @@ paths:
         - "オンボーディングAPI"
       summary: "お部屋現状登録API"
       requestBody:
-        description: "登録したいお部屋現状 imageIdにnullを指定すると新規追加"
+        description: "指定したIDのお部屋現状を登録します。"
         required: true
         content:
           application/json:
@@ -2894,18 +2844,72 @@ paths:
               properties:
                 userId:
                   type: "integer"
-                roomPlaceId:
-                  type: "integer"
-                imageId:
-                  type: "integer"
-                restorationImage:
-                  type: "string"
-                  format: "byte"
+                wall:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+                ceiling:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+                floor:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+                balcony:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+                doorLock:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+                shelf:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+                deskAndChair:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+                proof:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+                bedding:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+                mailbox:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
               example:
                 userId: 1
-                roomPlaceId: 1
-                imageId: 1
-                restorationImage: (Base64StringData)
+                wall:
+                  - (Base64StringData)
+                ceiling: 
+                  - (Base64StringData)
+                  - (Base64StringData)
+                floor: null
+                balcony: null
+                doorLock: null
+                shelf: null
+                deskAndChair:
+                  - (Base64StringData)
+                proof: null
+                bedding: null
+                mailbox: null
       responses:
         201:
           description: "Success"
