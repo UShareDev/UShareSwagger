@@ -3317,3 +3317,169 @@ paths:
                     resultCode: 404
                   data: null
 
+  "/guaranteeExamination/{userId}:":
+    get:
+      tags:
+        - "保証審査画像API"
+      summary: "保証審査画像取得API"
+      description: "指定したIDのユーザの保証審査画像を取得します。"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      userId:
+                        type: "string"
+                      image:
+                        type: "array"
+                        items:
+                            type: "string"
+                            format: "byte"
+                      registrationDateTime:
+                        type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    userId: 1
+                    image: 
+                      - (Base64StringData)
+                      - (Base64StringData)
+                    registrationDateTime: "2023/04/01 12:13:14"
+
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+    delete:
+      tags:
+        - "保証審査画像API"
+      summary: "保証審査画像削除API"
+      description: "指定したIDの保証審査画像を削除します。"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "削除したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/guaranteeExamination":
+    post:
+      tags:
+        - "保証審査画像API"
+      summary: "保証審査画像登録API"
+      requestBody:
+        description: "指定したIDの保証審査画像を登録します。"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                userId:
+                  type: "integer"
+                image:
+                  type: "array"
+                  items:
+                      type: "string"
+                      format: "byte"
+              example:
+                userId: 1
+                image: 
+                  - (Base64StringData)
+                  - (Base64StringData)
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
