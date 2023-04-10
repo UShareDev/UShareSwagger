@@ -3320,9 +3320,9 @@ paths:
   "/guaranteeExamination/{userId}:":
     get:
       tags:
-        - "保証審査画像API"
-      summary: "保証審査画像取得API"
-      description: "指定したIDのユーザの保証審査画像を取得します。"
+        - "保証審査データAPI"
+      summary: "保証審査データ取得API"
+      description: "指定したIDのユーザの保証審査データを取得します。"
       parameters:
         - name: "userId"
           in: "path"
@@ -3344,23 +3344,28 @@ paths:
                     data:
                       userId:
                         type: "string"
-                      image:
+                      guaranteeData:
                         type: "array"
                         items:
-                            type: "string"
-                            format: "byte"
-                      registrationDateTime:
-                        type: "string"
+                          type: "object"
+                          properties:
+                            contentsType:
+                              type: "string"
+                            contentsData:
+                              type: "string"
+                              format: "byte"
+                            registrationDateTime:
+                              type: "string"
                         
                 example:
                   header:
                     resultCode: 200
                   data:
                     userId: 1
-                    image: 
-                      - (Base64StringData)
-                      - (Base64StringData)
-                    registrationDateTime: "2023/04/01 12:13:14"
+                    guaranteeData: 
+                      - {contentsType: "jpg", contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
+                      - {contentsType: "pdf", contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
+                    
 
         404:
           description: "NotFound"
@@ -3381,9 +3386,9 @@ paths:
 
     delete:
       tags:
-        - "保証審査画像API"
-      summary: "保証審査画像削除API"
-      description: "指定したIDの保証審査画像を削除します。"
+        - "保証審査データAPI"
+      summary: "保証審査データ削除API"
+      description: "指定したIDの保証審査データを削除します。"
       parameters:
         - name: "userId"
           in: "path"
@@ -3428,10 +3433,10 @@ paths:
   "/guaranteeExamination":
     post:
       tags:
-        - "保証審査画像API"
-      summary: "保証審査画像登録API"
+        - "保証審査データAPI"
+      summary: "保証審査データ登録API"
       requestBody:
-        description: "指定したIDの保証審査画像を登録します。"
+        description: "指定したIDの保証審査データを登録します。"
         required: true
         content:
           application/json:
@@ -3440,16 +3445,23 @@ paths:
               properties:
                 userId:
                   type: "integer"
-                image:
+                guaranteeData:
                   type: "array"
                   items:
-                      type: "string"
-                      format: "byte"
+                    type: "object"
+                    properties:
+                      contentsType:
+                        type: "string"
+                      contentsData:
+                        type: "string"
+                        format: "byte"
+                      registrationDateTime:
+                        type: "string"
               example:
                 userId: 1
-                image: 
-                  - (Base64StringData)
-                  - (Base64StringData)
+                guaranteeData: 
+                  - {contentsType: "jpg", contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
+                  - {contentsType: "pdf", contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
       responses:
         201:
           description: "Success"
