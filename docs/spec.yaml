@@ -3350,7 +3350,7 @@ paths:
                           type: "object"
                           properties:
                             contentsType:
-                              type: "string"
+                              type: "integer"
                             contentsData:
                               type: "string"
                               format: "byte"
@@ -3363,8 +3363,8 @@ paths:
                   data:
                     userId: 1
                     guaranteeData: 
-                      - {contentsType: "jpg", contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
-                      - {contentsType: "pdf", contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
+                      - {contentsType: 1, contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
+                      - {contentsType: 2, contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
                     
 
         404:
@@ -3451,15 +3451,15 @@ paths:
                     type: "object"
                     properties:
                       contentsType:
-                        type: "string"
+                        type: "integer"
                       contentsData:
                         type: "string"
                         format: "byte"
               example:
                 userId: 1
                 guaranteeData: 
-                  - {contentsType: "jpg", contentsData: (Base64StringData)}
-                  - {contentsType: "pdf", contentsData: (Base64StringData)}
+                  - {contentsType: 1, contentsData: (Base64StringData)}
+                  - {contentsType: 2, contentsData: (Base64StringData)}
       responses:
         201:
           description: "Success"
