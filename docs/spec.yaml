@@ -579,6 +579,7 @@ paths:
                     userId: 1
                     beginDateContract: "2023/04/01"
                     endDateContract: "2025/03/31"
+                    arrivalDate: "2023/03/31"
                     arrivalTime: "09:30"
         404:
           description: "NotFound"
@@ -670,6 +671,7 @@ paths:
                 userId: 1
                 beginDateContract: "2023/04/01"
                 endDateContract: "2025/03/31"
+                arrivalDate: "2023/03/31"
                 arrivalTime: "09:30"
       responses:
         201:
