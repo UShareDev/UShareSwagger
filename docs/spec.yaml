@@ -2555,6 +2555,8 @@ paths:
                         type: "string"
                       passReset:
                         type: "integer"
+                      token:
+                        type: "string"
                 example:
                   header:
                     resultCode: 200
@@ -2563,6 +2565,7 @@ paths:
                     role: "usr"
                     password: "XXXXXXXXXXXXXXXXXX"
                     passReset: 0
+                    token: "XXXXXXXXXXXXX.XXXXXXXXXXXX.XXXXXXXXXX"
         400:
           description: "BadRequest"
           content:
@@ -2662,7 +2665,7 @@ paths:
                   header:
                     resultCode: 200
                   data:
-                    userId: (Base64StringData)
+                    image: (Base64StringData)
                     explanations: 
                       - 停電時にエレベーターが止まってしまう場合があります。階段ないしは、バルコニーの梯子をご利用ください。
                       - 指定避難場所は、富山公園と早稲田大学のキャンパスです。
