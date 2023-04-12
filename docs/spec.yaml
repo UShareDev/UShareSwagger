@@ -2536,7 +2536,7 @@ paths:
                 mail: 1@exampole.com
                 password: xxxxxxxx
       responses:
-        201:
+        200:
           description: "Success"
           content:
             application/json:
@@ -2547,11 +2547,22 @@ paths:
                     resultCode:
                       type: "integer"
                     data:
-                      type: "object"
+                      userId:
+                        type: "integer"
+                      role:
+                        type: "string"
+                      password:
+                        type: "string"
+                      passReset:
+                        type: "integer"
                 example:
                   header:
-                    resultCode: 201
-                  data: null
+                    resultCode: 200
+                  data:
+                    userId: 1
+                    role: "usr"
+                    password: "XXXXXXXXXXXXXXXXXX"
+                    passReset: 0
         400:
           description: "BadRequest"
           content:
