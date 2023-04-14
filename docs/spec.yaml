@@ -2582,6 +2582,129 @@ paths:
                   header:
                     resultCode: 400
                   data: null
+
+  "/password/reset":
+    post:
+      tags:
+        - "パスワード情報API"
+      summary: "パスワードリセットAPI"
+      requestBody:
+        description: "指定したmailのユーザのパスワードをリセットします。"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                mail:
+                  type: "string"
+              example:
+                mail: 1@exampole.com
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
+  "/password/change":
+    post:
+      tags:
+        - "パスワード情報API"
+      summary: "パスワード変更API"
+      requestBody:
+        description: "指定したmailのユーザのパスワードを変更します。"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                mail:
+                  type: "string"
+                password:
+                  type: "string"
+                newPassword:
+                  type: "string"
+              example:
+                mail: 1@exampole.com
+                password: xxxxxxxx
+                newPassword: yyyyyyyy
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      userId:
+                        type: "integer"
+                      role:
+                        type: "string"
+                      password:
+                        type: "string"
+                      passReset:
+                        type: "integer"
+                      token:
+                        type: "string"
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    userId: 1
+                    role: "usr"
+                    password: "XXXXXXXXXXXXXXXXXX"
+                    passReset: 0
+                    token: "XXXXXXXXXXXXX.XXXXXXXXXXXX.XXXXXXXXXX"
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
   "/user/{memberId}:":
     delete:
       tags:
