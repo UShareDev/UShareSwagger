@@ -2640,21 +2640,21 @@ paths:
         - "パスワード情報API"
       summary: "パスワード変更API"
       requestBody:
-        description: "指定したmailのユーザのパスワードを変更します。"
+        description: "指定したIDのユーザのパスワードを変更します。"
         required: true
         content:
           application/json:
             schema:
               type: "object"
               properties:
-                mail:
-                  type: "string"
+                userId:
+                  type: "integer"
                 password:
                   type: "string"
                 newPassword:
                   type: "string"
               example:
-                mail: 1@exampole.com
+                userId: 1
                 password: xxxxxxxx
                 newPassword: yyyyyyyy
       responses:
