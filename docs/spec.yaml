@@ -245,6 +245,8 @@ paths:
                               type: integer
                             fullName:
                               type: string
+                            kana:
+                              type: string
                       complete:
                         type: array
                         items:
@@ -254,18 +256,20 @@ paths:
                               type: integer
                             fullName:
                               type: string
+                            kana:
+                              type: string
                 example:
                   header:
                     resultCode: 200
                   data:
                     incomplete:
-                      - { userId: 1, fullName: "X" }
-                      - { userId: 2, fullName: "Y" }
-                      - { userId: 3, fullName: "Z" }
+                      - { userId: 1, fullName: "X", kana: "ｱ"}
+                      - { userId: 2, fullName: "Y", kana: "ｲ" }
+                      - { userId: 3, fullName: "Z", kana: "ｳ" }
                     complete:
-                      - { userId: 4, fullName: "A" }
-                      - { userId: 5, fullName: "B" }
-                      - { userId: 6, fullName: "C" }
+                      - { userId: 4, fullName: "A", kana: "ｴ"  }
+                      - { userId: 5, fullName: "B", kana: "ｵ" }
+                      - { userId: 6, fullName: "C", kana: "ｶ"  }
         404:
           desctiption: "NotFound"
           content:
@@ -312,6 +316,8 @@ paths:
                         type: "integer"
                       fullName:
                         type: "string"
+                      kana:
+                        type: "string"
                       gender:
                         type: "integer"
                       country:
@@ -352,6 +358,7 @@ paths:
                   data:
                     userId: 1
                     fullName: "山田 太郎"
+                    kana: "ヤマダ タロウ"
                     gender: 0
                     country: "JA"
                     birthday: "2001/01/01"
@@ -449,6 +456,8 @@ paths:
                   type: "integer"
                 fullName:
                   type: "string"
+                kana:
+                  type: "string"
                 gender:
                   type: "integer"
                 country:
@@ -486,6 +495,7 @@ paths:
               example:
                 userId: 1
                 fullName: "山田 太郎"
+                kana: "ヤマダ タロウ"
                 gender: 0
                 country: "JA"
                 birthday: "2001/01/01"
@@ -1094,6 +1104,8 @@ paths:
                               type: "integer"
                             fullName:
                               type: "string"
+                            kana:
+                              type: "string"
                             university:
                               type: "string"
                             birthday:
@@ -1108,6 +1120,7 @@ paths:
                       - {
                           userId: 1,
                           fullName: "X",
+                          kana: "ｱ",
                           university: "X Univ",
                           birthday: "YYYY/MM/DD",
                           major: "X major",
@@ -1115,6 +1128,7 @@ paths:
                       - {
                           userId: 2,
                           fullName: "Y",
+                          kana: "ｲ",
                           university: "Y Univ",
                           birthday: "YYYY/MM/DD",
                           major: "X major",
@@ -1122,6 +1136,7 @@ paths:
                       - {
                           userId: 3,
                           fullName: "Z",
+                          kana: "ｳ",
                           university: "Z Univ",
                           birthday: "YYYY/MM/DD",
                           major: "X major",
@@ -1172,6 +1187,8 @@ paths:
                         type: "integer"
                       fullName:
                         type: "string"
+                      kana:
+                        type: "string"
                       birthday:
                         type: "string"
                       university:
@@ -1198,6 +1215,7 @@ paths:
                   data:
                     userId: 1
                     fullName: "Yamada Taro"
+                    kana: "ﾔﾏﾀﾞ ﾀﾛｳ"
                     birthday: "2001/04/01"
                     university: "Waseda University"
                     major: "Architecture"
@@ -1288,6 +1306,8 @@ paths:
                   type: "integer"
                 fullName:
                   type: "string"
+                kana:
+                  type: "string"
                 birthday:
                   type: "string"
                 university:
@@ -1311,6 +1331,7 @@ paths:
               example:
                 userId: 1
                 fullName: "Yamada Taro"
+                kana: "ﾔﾏﾀﾞ ﾀﾛｳ"
                 birthday: "2001/04/01"
                 university: "Waseda University"
                 major: "Architecture"
