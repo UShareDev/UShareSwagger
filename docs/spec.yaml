@@ -3653,3 +3653,43 @@ paths:
                   header:
                     resultCode: 400
                   data: null
+
+  "/stripe/payContractCommission/{memberId}:":
+    get:
+      tags:
+        - "決済API"
+      summary: "契約手数料決済API"
+      description: "指定したIDのユーザの契約手数料決済画面を表示します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "表示したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        303:
+          description: "See Other"
+
+        400:
+          description: "BadRequest"
+
+  "/stripe/payInitialCost/{memberId}:":
+    get:
+      tags:
+        - "決済API"
+      summary: "初期費用決済API"
+      description: "指定したIDのユーザの初期費用決済画面を表示します。"
+      parameters:
+        - name: "memberId"
+          in: "path"
+          description: "表示したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        303:
+          description: "See Other"
+
+        400:
+          description: "BadRequest"
