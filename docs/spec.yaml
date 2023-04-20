@@ -3654,42 +3654,72 @@ paths:
                     resultCode: 400
                   data: null
 
-  "/stripe/payContractCommission/{memberId}:":
+  "/stripe/payContractCommission/{userId}:":
     get:
       tags:
         - "決済API"
       summary: "契約手数料決済API"
-      description: "指定したIDのユーザの契約手数料決済画面を表示します。"
+      description: "指定したIDのユーザの契約手数料決済画面へのURLを取得します。"
       parameters:
-        - name: "memberId"
+        - name: "userId"
           in: "path"
-          description: "表示したいメンバーのID"
+          description: "取得したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
       responses:
-        303:
-          description: "See Other"
-
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      redirectUrl:
+                        type: "string"
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    redirectUrl: "https://xxx.xxx.xxx"
         400:
           description: "BadRequest"
 
-  "/stripe/payInitialCost/{memberId}:":
+  "/stripe/payInitialCost/{userId}:":
     get:
       tags:
         - "決済API"
       summary: "初期費用決済API"
-      description: "指定したIDのユーザの初期費用決済画面を表示します。"
+      description: "指定したIDのユーザの初期費用決済画面へのURLを取得します。"
       parameters:
-        - name: "memberId"
+        - name: "userId"
           in: "path"
-          description: "表示したいメンバーのID"
+          description: "取得したいメンバーのID"
           required: true
           type: "integer"
           format: "int64"
       responses:
-        303:
-          description: "See Other"
-
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      redirectUrl:
+                        type: "string"
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    redirectUrl: "https://xxx.xxx.xxx"
         400:
           description: "BadRequest"
