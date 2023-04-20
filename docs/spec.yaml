@@ -3511,6 +3511,8 @@ paths:
                           properties:
                             contentsType:
                               type: "integer"
+                            contentsClass:
+                              type: "integer"
                             contentsData:
                               type: "string"
                               format: "byte"
@@ -3523,8 +3525,8 @@ paths:
                   data:
                     userId: 1
                     guaranteeData: 
-                      - {contentsType: 1, contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
-                      - {contentsType: 2, contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
+                      - {contentsType: 1, contentsClass: 1, contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
+                      - {contentsType: 2, contentsClass: 2, contentsData: (Base64StringData), registrationDateTime: "2023/04/01 12:13:14"}
                     
 
         404:
@@ -3612,14 +3614,189 @@ paths:
                     properties:
                       contentsType:
                         type: "integer"
+                      contentsClass:
+                        type: "integer"
                       contentsData:
                         type: "string"
                         format: "byte"
               example:
                 userId: 1
                 guaranteeData: 
-                  - {contentsType: 1, contentsData: (Base64StringData)}
-                  - {contentsType: 2, contentsData: (Base64StringData)}
+                  - {contentsType: 1, contentsClass: 1, contentsData: (Base64StringData)}
+                  - {contentsType: 2, contentsClass: 2, contentsData: (Base64StringData)}
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
+  "/addGuaranteeExamination/{userId}:":
+    get:
+      tags:
+        - "保証審査データ追加依頼API"
+      summary: "保証審査データ追加依頼取得API"
+      description: "指定したIDのユーザの保証審査データ追加依頼を取得します。"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "取得したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      userId:
+                        type: "string"
+                      requiredFiles:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            contentsClass:
+                              type: "integer"
+                            contentsCount:
+                              type: "integer"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    userId: 1
+                    requiredFiles: 
+                      - {contentsClass: 1, contentsCount: 1}
+                      - {contentsClass: 2, contentsCount: 2}
+                    
+
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+    delete:
+      tags:
+        - "保証審査データ追加依頼API"
+      summary: "保証審査データ追加依頼削除API"
+      description: "指定したIDの保証審査データ追加依頼を削除します。"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "削除したいメンバーのID"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/addGuaranteeExamination":
+    post:
+      tags:
+        - "保証審査データ追加依頼API"
+      summary: "保証審査データ追加依頼登録API"
+      requestBody:
+        description: "指定したIDの保証審査データ追加依頼を登録します。"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                userId:
+                  type: "integer"
+                requiredFiles:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      contentsClass:
+                        type: "integer"
+                      contentsCount:
+                        type: "integer"
+              example:
+                userId: 1
+                requiredFiles: 
+                  - {contentsClass: 1, contentsCount: 1}
+                  - {contentsClass: 2, contentsCount: 2}
       responses:
         201:
           description: "Success"
