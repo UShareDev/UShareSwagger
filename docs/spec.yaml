@@ -2725,13 +2725,73 @@ paths:
                   header:
                     resultCode: 400
                   data: null
+                  
+  "/signup":
+    post:
+      tags:
+        - "ユーザー新規登録API"
+      summary: "ユーザー新規登録API"
+      requestBody:
+        description: "新規にユーザーを登録します。"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                mail:
+                  type: "string"
+                password:
+                  type: "string"
+                role:
+                  type: "string"
+                language:
+                  type: "string"
+              example:
+                mail: "test@test.com"
+                password: "XXXXXX"
+                role: "usr"
+                language: "jp"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
 
   "/user/{memberId}:":
     delete:
       tags:
-        - "ユーザ削除API"
-      summary: "ユーザ削除API"
-      description: "指定したIDのユーザを削除します。"
+        - "ユーザー削除API"
+      summary: "ユーザー削除API"
+      description: "指定したIDのユーザーを削除します。"
       parameters:
         - name: "memberId"
           in: "path"
@@ -2772,6 +2832,8 @@ paths:
                   header:
                     resultCode: 404
                   data: null
+
+                  
   "/evacuation/{userId}:":
     get:
       tags:
@@ -3900,3 +3962,4 @@ paths:
                     redirectUrl: "https://xxx.xxx.xxx"
         400:
           description: "BadRequest"
+
