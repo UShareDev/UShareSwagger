@@ -2732,7 +2732,7 @@ paths:
         - "ユーザー新規登録API"
       summary: "ユーザー新規登録API"
       requestBody:
-        description: "新規にユーザーを登録します。"
+        description: "新規にユーザーを登録します。status=0：契約画面、status=1：コミュニティ画面"
         required: true
         content:
           application/json:
@@ -2747,11 +2747,14 @@ paths:
                   type: "string"
                 language:
                   type: "string"
+                status:
+                  type: "integer"
               example:
                 mail: "test@test.com"
                 password: "XXXXXX"
                 role: "usr"
                 language: "jp"
+                status: 1
       responses:
         201:
           description: "Success"
