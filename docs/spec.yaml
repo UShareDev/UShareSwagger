@@ -3966,3 +3966,470 @@ paths:
         400:
           description: "BadRequest"
 
+  "/building":
+    get:
+      tags:
+        - "建物情報API"
+      summary: "建物情報一覧取得API"
+      description: "建物情報の一覧を取得します。"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      building:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            buildingId:
+                              type: "integer"
+                            buildingName:
+                              type: "string"
+                            evacuationRouteImage:
+                              type: "string"
+                            evacuationExplanations:
+                              type: "array"
+                              items:
+                                type: "object"
+                                properties:
+                                  type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    building: 
+                    - {buildingId: 1, buildingName: "建物１", evacuationRouteImage: (Base64StringData), evacuationExplanations: ["説明１","説明２","説明３"]}
+                    - {buildingId: 2, buildingName: "建物１", evacuationRouteImage: (Base64StringData), evacuationExplanations: ["説明１","説明２","説明３"]}
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+    post:
+      tags:
+        - "建物情報API"
+      summary: "建物情報登録API"
+      requestBody:
+        description: "指定したIDの建物情報を登録します。ID=nullを指定で新規登録"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                buildingId:
+                  type: "integer"
+                buildingName:
+                  type: "string"
+                evacuationRouteImage:
+                  type: "integer"
+                  format: "byte"
+                evacuationExplanations:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      type: "string"
+              example:
+                buildingId: 1
+                buildingName: "建物１"
+                evacuationRouteImage: (Base64StringData)
+                evacuationExplanations: 
+                  - "説明１"
+                  - "説明２"
+                  - "説明３"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
+  "/building/{buildingId}:":
+    get:
+      tags:
+        - "建物情報API"
+      summary: "建物情報取得API"
+      description: "指定したIDの建物情報を取得します。"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      buildingId:
+                        type: "integer"
+                      buildingName:
+                        type: "string"
+                      evacuationRouteImage:
+                        type: "string"
+                      evacuationExplanations:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    buildingId: 1
+                    buildingName: "建物１"
+                    evacuationRouteImage: (Base64StringData)
+                    evacuationExplanations: ["説明１","説明２","説明３"]
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/room":
+    get:
+      tags:
+        - "部屋情報API"
+      summary: "部屋情報一覧取得API"
+      description: "部屋情報の一覧を取得します。"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      building:
+                        type: "array"
+                        items:
+                          type: "object"
+                          properties:
+                            roomId:
+                              type: "integer"
+                            buildingId:
+                              type: "integer"
+                            roomNumber:
+                              type: "string"
+                            price:
+                              type: "integer"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    properties:
+                      - { roomId: 1, buildingId: 1, roomNumber: "101", price: 120000 }
+                      - { roomId: 2, buildingId: 1, roomNumber: "102", price: 120000 }
+                      - { roomId: 3, buildingId: 2, roomNumber: "101", price: 120000 }
+                      - { roomId: 4, buildingId: 2, roomNumber: "102", price: 120000 }
+                   
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+    post:
+      tags:
+        - "部屋情報API"
+      summary: "部屋情報登録API"
+      requestBody:
+        description: "指定したIDの部屋情報を登録します。ID=nullを指定で新規登録"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                roomId:
+                  type: "integer"
+                buildingId:
+                  type: "integer"
+                roomNumber:
+                  type: "string"
+                price:
+                  type: "integer"
+              example:
+                roomId: 1
+                buildingId: 1
+                roomNumber: "103"
+                price: 120000
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
+  "/room/{roomId}:":
+    get:
+      tags:
+        - "部屋情報API"
+      summary: "部屋情報取得API"
+      description: "指定したIDの部屋情報を取得します。"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      roomId:
+                        type: "integer"
+                      buildingId:
+                        type: "integer"
+                      roomNumber:
+                        type: "string"
+                      price:
+                        type: "integer"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    roomId: 1
+                    buildingId: 1
+                    roomNumber: "101"
+                    price: 120000 
+                   
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/roomAssignment/{userId}:":
+    get:
+      tags:
+        - "部屋割当情報API"
+      summary: "部屋割当情報取得API"
+      description: "指定したIDの部屋割当情報を取得します。"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      userId:
+                        type: "integer"
+                      buildingId:
+                        type: "integer"
+                      buildingName:
+                        type: "string"
+                      roomId:
+                        type: "integer"
+                      roomNumber:
+                        type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    userId: 1
+                    buildingId: 1
+                    buildingName: "建物１"
+                    roomId: 1
+                    roomNumber: "101"
+                   
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
+  "/roomAssignment":
+    post:
+      tags:
+        - "部屋割当情報API"
+      summary: "部屋割当情報登録API"
+      requestBody:
+        description: "指定したIDの部屋割当情報を登録します。"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                userId:
+                  type: "integer"
+                buildingId:
+                  type: "integer"
+                roomId:
+                  type: "integer"
+              example:
+                userId: 1
+                buildingId: 1
+                roomId: 1
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
