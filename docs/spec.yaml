@@ -4487,7 +4487,7 @@ paths:
                     resultCode: 400
                   data: null
 
-  "/fcmToken/{fcmToken}":
+  "/fcmToken/{fcmToken}:":
     delete:
       tags:
         - "FCM Token 削除API"
