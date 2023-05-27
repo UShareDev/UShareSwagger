@@ -4436,8 +4436,8 @@ paths:
   "/fcmToken":
     post:
       tags:
-        - "FCM Token API"
-      summary: "FCM Token API"
+        - "FCM Token 登録API"
+      summary: "FCM Token 登録API"
       requestBody:
         description: "指定したuserIdのFCM Tokenを登録する"
         required: true
@@ -4487,10 +4487,11 @@ paths:
                     resultCode: 400
                   data: null
 
+  "/fcmToken/{fcmToken}":
     delete:
       tags:
-        - "FCM Token API"
-      summary: "FCM Token API"
+        - "FCM Token 削除API"
+      summary: "FCM Token 削除API"
       description: "指定したuserIdのFCM Tokenを削除する"
       parameters:
         - name: "fcmToken"
