@@ -4433,3 +4433,103 @@ paths:
                     resultCode: 400
                   data: null
 
+  "/fcmToken":
+    post:
+      tags:
+        - "FCM Token API"
+      summary: "FCM Token API"
+      requestBody:
+        description: "指定したuserIdのFCM Tokenを登録する"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                userId:
+                  type: "integer"
+                fcmToken:
+                  type: "string"
+              example:
+                userId: 1
+                fcmToken: "Firebase Cloud Message Token"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
+    delete:
+      tags:
+        - "FCM Token API"
+      summary: "FCM Token API"
+      description: "指定したuserIdのFCM Tokenを削除する"
+      parameters:
+        - name: "fcmToken"
+          in: "path"
+          description: "削除したいFCMのToken"
+          required: true
+          type: "string"
+          format: "int64"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
+
