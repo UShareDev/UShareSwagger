@@ -1071,6 +1071,59 @@ paths:
                     resultCode: 400
                   data: null
 
+  "/contract/sign":
+    post:
+      tags:
+        - "メンバー契約情報API"
+      summary: "契約書電子署名API"
+      description: "指定したuserIdの契約書の電子署名を開始する"
+      requestBody:
+        description: "登録したいメンバーの契約情報(4/4)"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                userId:
+                  type: "integer"
+              example:
+                userId: 1
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
+
   "/memberinfo/search?keyword={keyword}":
     get:
       tags:
