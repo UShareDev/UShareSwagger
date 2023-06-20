@@ -716,6 +716,86 @@ paths:
                   header:
                     resultCode: 400
                   data: null
+    
+    put:
+      tags:
+        - "メンバー契約情報API"
+      summary: "入居期間更新API"
+      requestBody:
+        description: "ユーザーの入居開始終了を変更する。"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                userId:
+                  type: "integer"
+                  nullable: false
+                beginDateContract:
+                  type: "string"
+                  nullable: true
+                  description: "yyyy-MM-dd形式"
+                endDateContract:
+                  type: "string"
+                  nullable: true
+                  description: "yyyy-MM-dd形式"
+                arrivalDate:
+                  type: "string"
+                  nullable: true
+                  description: "yyyy-MM-dd形式"
+                arrivalTime:
+                  type: "string"
+                  nullable: true
+                scheduledMoveInDate:
+                  type: "string"
+                  nullable: true
+                  description: "yyyy-MM-dd形式"
+                scheduledMoveOutDate:
+                  type: "string"
+                  nullable: true
+                  description: "yyyy-MM-dd形式"
+              example:
+                userId: 1
+                beginDateContract: "2023-04-01"
+                endDateContract: "2025-03-31"
+                arrivalDate: "2023-03-31"
+                arrivalTime: "09:30"
+                scheduledMoveInDate: "2023-04-01"
+                scheduledMoveOutDate: "2025-03-31"
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
 
   "/contract/image/{memberId}:":
     get:
@@ -1070,6 +1150,63 @@ paths:
                   header:
                     resultCode: 400
                   data: null
+  
+  "/contract/unassignedWithRooms":
+    post:
+      tags:
+        - "メンバー契約情報API"
+      summary: "部屋未割当ユーザー一覧取得API"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                  data:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        userId:
+                          type: "integer"
+                        mail:
+                          type: "string"
+                        fullName:
+                          type: "string"
+                        firstName:
+                          type: "string"
+                        lastName:
+                          type: "string"
+                        beginDateContract:
+                          type: "string"
+                        endDateContract:
+                          type: "string"
+                        scheduledMoveOutDate:
+                          type: "string"
+                        scheduledMoveInDate:
+                          type: "string"
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+                  
 
   "/contract/sign":
     post:
@@ -3995,8 +4132,6 @@ paths:
           in: "path"
           description: "取得したいメンバーのID"
           required: true
-          type: "integer"
-          format: "int64"
       responses:
         200:
           description: "Success"
@@ -4054,14 +4189,16 @@ paths:
                                 type: "object"
                                 properties:
                                   type: "string"
+                            roomCount:
+                              type: "integer"
                         
                 example:
                   header:
                     resultCode: 200
                   data:
                     building: 
-                    - {buildingId: 1, buildingName: "建物１", evacuationRouteImage: (Base64StringData), evacuationExplanations: ["説明１","説明２","説明３"]}
-                    - {buildingId: 2, buildingName: "建物１", evacuationRouteImage: (Base64StringData), evacuationExplanations: ["説明１","説明２","説明３"]}
+                    - {buildingId: 1, buildingName: "建物１", evacuationRouteImage: (Base64StringData), evacuationExplanations: ["説明１","説明２","説明３"], roomCount: 8}
+                    - {buildingId: 2, buildingName: "建物１", evacuationRouteImage: (Base64StringData), evacuationExplanations: ["説明１","説明２","説明３"], roomCount: 0}
         404:
           description: "NotFound"
           content:
@@ -4152,6 +4289,13 @@ paths:
         - "建物情報API"
       summary: "建物情報取得API"
       description: "指定したIDの建物情報を取得します。"
+      parameters:
+      - name: "buildingId"
+        description: "建物Id"
+        in: "path"
+        required: true
+        schema:
+          type: "integer"
       responses:
         200:
           description: "Success"
@@ -4202,12 +4346,121 @@ paths:
                     resultCode: 404
                   data: null
 
-  "/room":
+  "/building/{buildingId}/rooms":
     get:
       tags:
-        - "部屋情報API"
-      summary: "部屋情報一覧取得API"
-      description: "部屋情報の一覧を取得します。"
+        - "建物情報API"
+      summary: "建物部屋一覧取得API"
+      description: "指定された建物の部屋情報の一覧を取得します。"
+      parameters:
+       - name: "buildingId"
+         in: "path"
+         description: "建物Id"
+         required: true
+         schema:
+          type: "integer"
+        
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: "object"
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        roomId:
+                          type: "integer"
+                          description: "部屋ID"
+                        buildingId:
+                          type: "integer"
+                          description: "建物ID"
+                        roomNumber:
+                          type: "string"
+                          description: "部屋番号"
+                        allowedGender:
+                          type: "integer"
+                          description: "性別（0: 男性用, 1: 女性用, 2: その他=男女共用）"
+                        rent:
+                          type: "integer"
+                          description: "賃料"
+                        utilitiesInternet:
+                          type: "integer"
+                          description: "インターネット使用料"
+                        cleaning:
+                          type: "integer"
+                          description: "清掃料"
+                        commonServiceFee:
+                          type: "integer"
+                          description: "共益費"
+                        guaranteeFee:
+                          type: "integer"
+                          description: "保証金"
+                        entranceFee:
+                          type: "integer"
+                          description: "入館初期費用"
+                        otherFee:
+                          type: "integer"
+                          description: "その他費用"
+                        nonLifeInsurance:
+                          type: "integer"
+                          description: "損害保険料"
+                        membershipFee:
+                          type: "integer"
+                          description: "メンバーシップ料"
+                        discount:
+                          type: "integer"
+                          description: "割引額"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                   - { roomId: 1, buildingId: 1, roomNumber: "101", allowedGender: 0, rent: 120000, utilitiesInternet: 3000, cleaning: 5000, commonServiceFee: 8000, guaranteeFee: 150000, entranceFee: 130000, otherFee: 0, nonLifeInsurance: 20000, membershipFee: 18000, discount: 2500 }
+                   - { roomId: 2, buildingId: 1, roomNumber: "102", allowedGender: 0, rent: 110000, utilitiesInternet: 2000, cleaning: 5500, commonServiceFee: 6000, guaranteeFee: 250000, entranceFee: 100000, otherFee: 1000, nonLifeInsurance: 26000, membershipFee: 13000, discount: 10000 }
+                   
+        400:
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: "object"
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+                  
+  "/building/{buildingId}/users":
+    get:
+      tags:
+        - "建物情報API"
+      summary: "建物入居者一覧取得API"
+      description: "指定された建物内の入居者の一覧を取得します。"
+      parameters:
+       - name: "buildingId"
+         in: "path"
+         description: "建物Id"
+         required: true
+         schema:
+          type: "integer"
+        
       responses:
         200:
           description: "Success"
@@ -4219,75 +4472,129 @@ paths:
                   header:
                     resultCode:
                       type: "integer"
-                    data:
-                      building:
-                        type: "array"
-                        items:
-                          type: "object"
-                          properties:
-                            roomId:
-                              type: "integer"
-                            buildingId:
-                              type: "integer"
-                            roomNumber:
-                              type: "string"
-                            price:
-                              type: "integer"
-                        
-                example:
-                  header:
-                    resultCode: 200
                   data:
-                    properties:
-                      - { roomId: 1, buildingId: 1, roomNumber: "101", price: 120000 }
-                      - { roomId: 2, buildingId: 1, roomNumber: "102", price: 120000 }
-                      - { roomId: 3, buildingId: 2, roomNumber: "101", price: 120000 }
-                      - { roomId: 4, buildingId: 2, roomNumber: "102", price: 120000 }
-                   
-        404:
-          description: "NotFound"
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        userId:
+                          type: "integer"
+                        mail:
+                          type: "string"
+                        fullName:
+                          type: "string"
+                        firstName:
+                          type: "string"
+                        lastName:
+                          type: "string"
+                        beginDateContract:
+                          type: "string"
+                        endDateContract:
+                          type: "string"
+                        scheduledMoveOutDate:
+                          type: "string"
+                        scheduledMoveInDate:
+                          type: "string"
+        400:
+          description: "Error"
           content:
             application/json:
               schema:
                 type: "object"
                 properties:
                   header:
-                    resultCode:
-                      type: "integer"
-                    data:
-                      type: "object"
+                    type: "object"
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: "object"
                 example:
                   header:
-                    resultCode: 404
+                    resultCode: 400
                   data: null
-
+                  
+  "/room":
     post:
       tags:
         - "部屋情報API"
-      summary: "部屋情報登録API"
+      summary: "部屋登録API"
       requestBody:
-        description: "指定したIDの部屋情報を登録します。ID=nullを指定で新規登録"
         required: true
         content:
           application/json:
             schema:
               type: "object"
               properties:
-                roomId:
-                  type: "integer"
                 buildingId:
+                  nullable: false
                   type: "integer"
+                  description: "建物ID"
                 roomNumber:
+                  nullable: false
                   type: "string"
-                price:
+                  description: "部屋番号"
+                allowedGender:
+                  nullable: false
                   type: "integer"
+                  description: "性別（0: 男性用, 1: 女性用, 2: その他=男女共用）"
+                rent:
+                  nullable: false
+                  type: "integer"
+                  description: "賃料"
+                utilitiesInternet:
+                  nullable: false
+                  type: "integer"
+                  description: "インターネット使用料"
+                cleaning:
+                  nullable: false
+                  type: "integer"
+                  description: "清掃料"
+                commonServiceFee:
+                  type: "integer"
+                  nullable: false
+                  description: "共益費"
+                guaranteeFee:
+                  nullable: false
+                  type: "integer"
+                  description: "保証金"
+                entranceFee:
+                  nullable: false
+                  type: "integer"
+                  description: "入館初期費用"
+                otherFee:
+                  nullable: false
+                  type: "integer"
+                  description: "その他費用"
+                nonLifeInsurance:
+                  nullable: false
+                  type: "integer"
+                  description: "損害保険料"
+                membershipFee:
+                  nullable: false
+                  type: "integer"
+                  description: "メンバーシップ料"
+                discount:
+                  nullable: false
+                  type: "integer"
+                  description: "割引額"
+                  
               example:
-                roomId: 1
                 buildingId: 1
-                roomNumber: "103"
-                price: 120000
+                roomNumber: "101"
+                alllowedGender: 0
+                rent: 120000
+                utilitiesInternet: 3000
+                cleaning: 5000
+                commonServiceFee: 8000
+                guaranteeFee: 150000
+                entranceFee: 130000
+                otherFee: 0
+                nonLifeInsurance: 20000
+                membershipFee: 18000
+                discount: 2500
       responses:
-        201:
+        200:
           description: "Success"
           content:
             application/json:
@@ -4295,13 +4602,115 @@ paths:
                 type: "object"
                 properties:
                   header:
-                    resultCode:
-                      type: "integer"
-                    data:
+                    type: "object"
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
                       type: "object"
                 example:
                   header:
                     resultCode: 201
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: "object"
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                   type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+                  
+    put:
+      tags:
+        - "部屋情報API"
+      summary: "部屋情報更新API"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                roomId:
+                  nullable: false
+                  type: "integer"
+                  description: "部屋ID"
+                roomNumber:
+                  nullable: true
+                  type: "string"
+                  description: "部屋番号"
+                allowedGender:
+                  nullable: true
+                  type: "integer"
+                  description: "性別（0: 男性用, 1: 女性用, 2: その他=男女共用）"
+                rent:
+                  nullable: true
+                  type: "integer"
+                  description: "賃料"
+                utilitiesInternet:
+                  nullable: true
+                  type: "integer"
+                  description: "インターネット使用料"
+                cleaning:
+                  nullable: true
+                  type: "integer"
+                  description: "清掃料"
+                commonServiceFee:
+                  type: "integer"
+                  nullable: true
+                  description: "共益費"
+                guaranteeFee:
+                  nullable: true
+                  type: "integer"
+                  description: "保証金"
+                entranceFee:
+                  nullable: true
+                  type: "integer"
+                  description: "入館初期費用"
+                otherFee:
+                  nullable: true
+                  type: "integer"
+                  description: "その他費用"
+                nonLifeInsurance:
+                  nullable: true
+                  type: "integer"
+                  description: "損害保険料"
+                membershipFee:
+                  nullable: true
+                  type: "integer"
+                  description: "メンバーシップ料"
+                discount:
+                  nullable: true
+                  type: "integer"
+                  description: "割引額"
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: "object"
+                    resultCode:
+                      type: "integer"
+                  data:
+                    type: "object"
+                example:
+                  header:
+                    resultCode: 200
                   data: null
         400:
           description: "BadRequest"
@@ -4319,13 +4728,68 @@ paths:
                   header:
                     resultCode: 400
                   data: null
+  
+    delete:
+      tags:
+        - "部屋情報API"
+      summary: "部屋削除API"
+      description: "指定したIDの部屋を削除します"
+      parameters:
+      - in: path
+        name: roomId
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  schema:
+                    type: "object"
+                    header:
+                      type: "object"
+                      resultCode:
+                        type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+          
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
 
-  "/room/{roomId}:":
+  "/room/{roomId}":
     get:
       tags:
         - "部屋情報API"
       summary: "部屋情報取得API"
       description: "指定したIDの部屋情報を取得します。"
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: integer
       responses:
         200:
           description: "Success"
@@ -4337,15 +4801,16 @@ paths:
                   header:
                     resultCode:
                       type: "integer"
-                    data:
-                      roomId:
-                        type: "integer"
-                      buildingId:
-                        type: "integer"
-                      roomNumber:
-                        type: "string"
-                      price:
-                        type: "integer"
+                  data:
+                    type: "object"
+                    roomId:
+                      type: "integer"
+                    buildingId:
+                      type: "integer"
+                    roomNumber:
+                      type: "string"
+                    price:
+                      type: "integer"
                         
                 example:
                   header:
@@ -4372,13 +4837,19 @@ paths:
                   header:
                     resultCode: 404
                   data: null
-
-  "/roomAssignment/{userId}:":
+                  
+  "/room/{roomId}/users":
     get:
       tags:
-        - "部屋割当情報API"
-      summary: "部屋割当情報取得API"
-      description: "指定したIDの部屋割当情報を取得します。"
+        - "部屋情報API"
+      summary: "入居者一覧取得API"
+      description: "指定したIDの部屋に紐ついたユーザーの情報を取得します。"
+      parameters:
+        - in: path
+          name: roomId
+          required: true
+          schema:
+            type: integer
       responses:
         200:
           description: "Success"
@@ -4390,29 +4861,31 @@ paths:
                   header:
                     resultCode:
                       type: "integer"
-                    data:
-                      userId:
-                        type: "integer"
-                      buildingId:
-                        type: "integer"
-                      buildingName:
-                        type: "string"
-                      roomId:
-                        type: "integer"
-                      roomNumber:
-                        type: "string"
-                        
-                example:
-                  header:
-                    resultCode: 200
                   data:
-                    userId: 1
-                    buildingId: 1
-                    buildingName: "建物１"
-                    roomId: 1
-                    roomNumber: "101"
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        userId:
+                          type: "integer"
+                        mail:
+                          type: "string"
+                        fullName:
+                          type: "string"
+                        firstName:
+                          type: "string"
+                        lastName:
+                          type: "string"
+                        beginDateContract:
+                          type: "string"
+                        endDateContract:
+                          type: "string"
+                        scheduledMoveOutDate:
+                          type: "string"
+                        scheduledMoveInDate:
+                          type: "string"
                    
-        404:
+        400:
           description: "NotFound"
           content:
             application/json:
@@ -4426,14 +4899,65 @@ paths:
                       type: "object"
                 example:
                   header:
+                    resultCode: 400
+                  data: null
+                  
+  "/roomAssignment":
+    get:
+      tags:
+        - "部屋割当情報API"
+      summary: "部屋割当現状一覧取得API"
+      description: "建物にひもづく全ての部屋の現状の状況を取得します。"
+      parameters:
+      - in: query
+        name: buildingId
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header: 
+                    properties:
+                      resultCode: 
+                        type: "integer" 
+                  data:
+                    properties:
+                      rooms:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            roomId: 
+                              type: "integer"
+                            roomName: 
+                              type: "string"
+                            userName: 
+                              type: "string"
+                            contractStartDate: 
+                              type: "string"
+                            contractEndDate: 
+                              type: "string"
+                            status: 
+                              type: "integer"
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+                example:
+                  header:
                     resultCode: 404
                   data: null
-
-  "/roomAssignment":
+                  
     post:
       tags:
         - "部屋割当情報API"
-      summary: "部屋割当情報登録API"
+      summary: "部屋割当作成API"
       requestBody:
         description: "指定したIDの部屋割当情報を登録します。"
         required: true
@@ -4444,16 +4968,15 @@ paths:
               properties:
                 userId:
                   type: "integer"
-                buildingId:
-                  type: "integer"
+                  nullable: false
                 roomId:
                   type: "integer"
-              example:
-                userId: 1
-                buildingId: 1
-                roomId: 1
+                  nullable: false
+                buildingId:
+                  type: "integer"
+                  nullable: false
       responses:
-        201:
+        200:
           description: "Success"
           content:
             application/json:
@@ -4461,13 +4984,15 @@ paths:
                 type: "object"
                 properties:
                   header:
-                    resultCode:
-                      type: "integer"
-                    data:
-                      type: "object"
+                    type: object
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: "object"
                 example:
                   header:
-                    resultCode: 201
+                    resultCode: 200
                   data: null
         400:
           description: "BadRequest"
@@ -4477,13 +5002,151 @@ paths:
                 type: "object"
                 properties:
                   header:
-                    resultCode:
-                      type: "integer"
-                    data:
-                      type: "object"
+                    type: object
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: "object"
                 example:
                   header:
                     resultCode: 400
+                  data: null
+  
+    delete:
+      tags:
+        - "部屋割当情報API"
+      summary: "部屋割当削除API"
+      requestBody:
+        description: "指定したIDの部屋割当を削除します。"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                userId:
+                  type: "integer"
+                  nullable: false
+                roomId:
+                  type: "integer"
+                  nullable: false
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: object
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: "object"
+                example:
+                  header:
+                    resultCode: 200
+                  data: null
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: object
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: "object"
+                example:
+                  header:
+                    resultCode: 400
+                  data: null
+
+  "/roomAssignment/{roomId}":
+    get:
+      tags:
+        - "部屋割当情報API"
+      summary: "部屋割当情報取得API"
+      description: "指定した部屋IDの部屋割当情報を取得します。"
+      parameters:
+      - in: path
+        name: roomId
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: object
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: object
+                    properties:
+                      histories:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            historyId: 
+                              type: "integer"
+                            userId:
+                              type: "integer"
+                            userName:
+                              type: "string"
+                            contractStartDate:
+                              type: "string"
+                            contractEndDate:
+                              type: "string"
+                            endDate:
+                              type: "string"
+                        
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    histories: [
+                        {
+                        historyId: 1,
+                        userId: 1,
+                        userName: "テスト太郎",
+                        contractStartDate: "2022/09/01",
+                        contractEndDate: "2024/08/31",
+                        endDate: "2024/07/14"
+                      }
+                    ]
+                   
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: object
+                    properties: 
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: "object"
+                example:
+                  header:
+                    resultCode: 404
                   data: null
 
   "/fcmToken":
@@ -4586,4 +5249,231 @@ paths:
                   header:
                     resultCode: 404
                   data: null
-
+                  
+  "/csv/users":
+    post:
+      tags:
+        - "一括登録・一覧表示API"
+      summary: "ユーザー一括登録API"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                csv_row:
+                  description: CSV内の行番号を表す。どの行でエラーが発生したのか表示するために使う。
+                  type: "integer"
+                mail:
+                  description: ユーザーのメールアドレス。メールアドレスの形式「AAA@BBB.CCC」である必要がある。すでに登録されているメールアドレスを指定した場合はエラーとなる。
+                  type: "string"
+                phone_number:
+                  description: ユーザーの電話番号。
+                  type: "string"
+                  nullable: true
+                gender :
+                  description: 0:男性 1:女性 2:その他。これら以外の値はエラーとなる。
+                  type: "integer"
+                  nullable: true
+                country :
+                  description: アルファベット大文字2文字の国コードで指定する。
+                  type: "string"
+                  nullable: true
+                language :
+                  description: アルファベット大文字2文字の言語コードで指定する。(JPとENのみ対応)
+                  type: "string"
+                first_name :
+                  description: ユーザーの名。
+                  type: "string"
+                  nullable: true
+                last_name :
+                  description: ユーザーの姓。
+                  type: "string"
+                  nullable: true
+                university :
+                  description: ユーザーの所属する大学。
+                  type: "string"
+                  nullable: true
+                major :
+                  description: ユーザーの所属する大学の学部。
+                  type: "string"
+                  nullable: true
+                birthday :
+                  description: ユーザーの生年月日。yyyy-MM-ddの形式で指定する。
+                  type: "string"
+                  nullable: true
+                status :
+                  description: 契約の進捗ステータス。0:未契約 1:契約済。これら以外の値はエラーとなる。
+                  type: "integer"
+                  nullable: true
+                role :
+                  description: ユーザーのシステム権限。usr:ユーザー権限 mgr:管理者権限。これら以外の値はエラーとなる。
+                  type: "string"
+                password :
+                  description: ユーザーのパスワード。
+                  type: "string"
+              example:
+                data:
+                  - csv_row: 1
+                    mail: "test001@test.com"
+                    phone_number: "0123456789"
+                    gender: 0
+                    country: "JP"
+                    language: "JA"
+                    first_name: "太郎"
+                    last_name: "山田"
+                    university: "都会大学"
+                    major: "乙学部"
+                    birthday: "2000-01-23"
+                    status: 0
+                    role: "usr"
+                    password: "pass"
+                  - csv_row: 2
+                    mail: "sample@test.com"
+                    phone_number: "78945613"
+                    gender: 1
+                    country: "KR"
+                    language: "EN"
+                    first_name: "Ji-Hyun"
+                    last_name: "Lee"
+                    university: "University of Korea"
+                    major: "Engineering"
+                    birthday: "2000-01-23"
+                    status: 0
+                    role: "usr"
+                    password: "pass"
+      responses:
+        200:
+          description: "ユーザーの作成に成功"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: "object"
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: "object"
+                    properties:
+                      createAccounts:
+                        type: "integer"
+                example:
+                  header:
+                    resultCode: 200
+                  data:
+                    createAccounts: 2
+        404:
+          description: "ユーザーの作成に失敗"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data:
+                    reason: "duplicate_mail"
+                    row: 2
+                    columnName: "mail"
+  
+  "/csv/contracts":
+    get:
+      tags:
+        - 一括登録・一覧表示API
+      summary: 契約情報一括取得API
+      description: 指定した条件に一致する契約情報の一覧を取得します。
+      parameters:
+        - name: userName
+          in: query
+          description: ユーザー名
+          required: true
+          schema:
+            type: string
+        - name: buildingId
+          in: query
+          description: 建物ID
+          required: true
+          schema:
+            type: string
+        - name: beginDateContractFrom
+          in: query
+          description: 契約開始日From (yyyy-MM-dd形式)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: beginDateContractTo
+          in: query
+          description: 契約開始日To (yyyy-MM-dd形式)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: endDateContractFrom
+          in: query
+          description: 契約終了日From (yyyy-MM-dd形式)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: endDateContractTo
+          in: query
+          description: 契約終了日To (yyyy-MM-dd形式)
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    type: object
+                    properties:
+                      resultCode:
+                        type: "integer"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userId:
+                          type: integer
+                        mail:
+                          type: string
+                        firstName:
+                          type: string
+                        lastName:
+                          type: string
+                        beginDateContract:
+                          type: string
+                          format: date
+                        endDateContract:
+                          type: string
+                          format: date
+                        ltv:
+                          type: number
+                      
+                
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  header:
+                    resultCode:
+                      type: "integer"
+                    data:
+                      type: "object"
+                example:
+                  header:
+                    resultCode: 404
+                  data: null
